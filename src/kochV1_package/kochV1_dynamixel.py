@@ -166,9 +166,12 @@ class KochV1_DxlBus(DxlBus):
             self.set_operating_mode(motor, operating_mode = XL430_W250OperatingModeType.VELOCITY_CONTROL_MODE)
 
     def set_epcm_control_mode(self):
+        # After setting new operating mode, the Profile Velocity and Profile Acceleration 
+        # will be reset to default values (0) ->  need to set them again
         for motor in self.motors[:5]:
             # For both motor types same register value for velocity control mode
             self.set_operating_mode(motor, operating_mode = XL430_W250OperatingModeType.EXTENDED_POSITION_CONTROL_MODE)
+            self._set_motor_velocity_and_acceleration(motor, velocity=150, acceleration=10)
 
     def set_operating_mode(self, motor: DynamixelXL330_M288 | DynamixelXL430_W250, 
                            operating_mode: XL330_M288OperatingModeType | XL430_W250OperatingModeType):
@@ -234,7 +237,7 @@ class KochV1_DxlBus(DxlBus):
             velocity: int = 150, acceleration: int = 10
             ):
         
-        self.write_reg(motor.id, motor.RAM.PROFILE_VELOCITY, velocity)
+        self.write_reg(motor.id, motor.RAM.PROFILE_VELOCITY, to_u32(velocity))
         self.write_reg(motor.id, motor.RAM.PROFILE_ACCELERATION, acceleration)
 
     def _enable_torque(self, motor: DynamixelXL330_M288 | DynamixelXL430_W250):

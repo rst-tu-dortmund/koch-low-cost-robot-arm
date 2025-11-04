@@ -72,7 +72,7 @@ class KochV1_Robot:
             # https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/
             # set max possible acceleration based on velocity
             acceleration_value = int(np.abs(joint_velocity_verified) / 2)
-            self._dxl_bus.write_reg(motor.id, motor.RAM.PROFILE_ACCELERATION, int(np.abs(joint_velocity) / 2))
+            self._dxl_bus.write_reg(motor.id, motor.RAM.PROFILE_ACCELERATION, acceleration_value)
         
         self._dxl_bus.set_goal_velocities(joint_velocities_verified)
 
