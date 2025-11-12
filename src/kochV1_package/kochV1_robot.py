@@ -133,6 +133,9 @@ class KochV1_Robot:
             # see dynamixel profile velocity and profile acceleration
             # https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/
             # set max possible acceleration based on velocity
+
+            # FIXME move setting acceleration to dxl_bus.set_goal_velocities
+            #       acceleration may be set wrong cause new velocity is not applied in runtime
             acceleration_value = int(np.abs(joint_velocity_verified) / 2)
             self._dxl_bus.write_reg(motor.id, motor.RAM.PROFILE_ACCELERATION, acceleration_value)
         
