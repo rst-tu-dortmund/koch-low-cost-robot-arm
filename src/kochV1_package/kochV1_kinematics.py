@@ -1,5 +1,12 @@
 from __future__ import annotations
 
+"""
+@brief Kinematics utilities for the robot arm Koch V1.1.
+
+Provides DH-based forward/inverse kinematics and Jacobian computation for a simple serial manipulator.
+@see KochV1_KinematicsModel for the implementation of forward and inverse kinematics.
+"""
+
 import numpy as np
 import sympy as sp
 
@@ -15,12 +22,15 @@ from typing import (
 )
 
 from utils import (
-    Unit, 
-    to_dxl_units,
     check_limits
 )
 
 class JointType(Enum):
+    """
+    @brief Joint actuation type.
+
+    Distinguishes between revolute and prismatic joints.
+    """
     REVOLUTE = 1
     PRISMATIC = 2
 
@@ -29,6 +39,14 @@ class JointType(Enum):
 # theta will be ignored for revolute joint
 @dataclass(frozen=True, slots=True)
 class DHJoint:
+    """
+    @brief Denavit-Hartenberg joint/link parameters.
+
+    Stores standard (a, alpha, d, theta) along with joint limits and offsets. For revolute joints `theta` is the
+    variable; for prismatic joints `d` is the variable.
+
+    @note Angles are in radians; lengths are in meters.
+    """
     type: JointType                 = JointType.REVOLUTE
     name: str                       = ""
     a: float                        = 0.0                   # link length (m)
@@ -39,6 +57,15 @@ class DHJoint:
     q_offset: float                 = 0.0                   # joint offset (rad or m)
 
     def get_transform(self, q: float = 0.0) -> SE3:
+        """
+        @brief Compute the homogeneous transform of this joint for a given configuration.
+
+        Uses the standard DH convention. For revolute joints `q` adds to `theta`; for prismatic joints `q` adds to `d`.
+
+        @param q float Joint variable (rad for revolute, m for prismatic).
+        @return SE3 Transform from the previous link frame to this link frame.
+        """
+
         # Select DH parameters depending on joint type
         # REVOLUTE
         if self.type is JointType.REVOLUTE:
@@ -66,10 +93,21 @@ class DHJoint:
 
 @dataclass(frozen=True, slots=True)
 class RobotConfig:
+    """
+    @brief Immutable container for a robot's DH chain.
+
+    @param dh_joints Tuple[DHJoint] Ordered DH joints from base to end-effector.
+    """
     dh_joints: Tuple[DHJoint]
 
     @staticmethod
     def from_DH_parameters(dh_parameters: List[DHJoint]) -> 'RobotConfig':
+        """
+        @brief Build a configuration from a list of DH joints.
+
+        @param dh_parameters list[DHJoint] Joints in base-to-tip order.
+        @return RobotConfig Frozen configuration.
+        """
         return RobotConfig(dh_joints=tuple(dh_parameters))
 
     @staticmethod
@@ -78,7 +116,16 @@ class RobotConfig:
 
 
 class KochV1_KinematicsModel:
+    """
+    @brief Kinematics model (FK, IK, Jacobian) for the robot arm Koch V1.1.
+
+    Defines a 5-DOF DH chain;
+    Provides analytical FK/IK and symbolic Jacobian compiled to NumPy.
+    """
     def __init__(self):
+        """
+        @brief Initialize the model with fixed DH parameters and compile the Jacobian function.
+        """
         joints = [
             DHJoint(type=JointType.REVOLUTE, a=0,       alpha=np.pi/2, d=0.0563,   q_offset=0,                   q_limits=(-np.pi / 2, np.pi / 2)),
             DHJoint(type=JointType.REVOLUTE, a=0.10931, alpha=0,       d=0,        q_offset=-7.78 * (np.pi/180), q_limits=(-8*np.pi/180, 125*np.pi/180)),
@@ -96,6 +143,15 @@ class KochV1_KinematicsModel:
         return self._robot_cfg
 
     def compute_forward_kinematics(self, joint_angles: List[float]) -> SE3:
+        """
+        @brief Compute end-effector pose from joint angles.
+
+        Multiplies per-link DH transforms in order.
+
+        @param joint_angles list[float] Joint values (rad) for the 5 DOF.
+        @return SE3 End-effector pose in the base frame.
+        """
+
         T_ee = SE3()
 
         for dh_joint, q in zip(self.robot_cfg.dh_joints, joint_angles):
@@ -104,6 +160,15 @@ class KochV1_KinematicsModel:
         return T_ee
     
     def compute_inverse_kinematics(self, T_ee: SE3) -> List[float] | None:
+        """
+        @brief Compute joint angles that realize the desired end-effector pose.
+
+        Solves an analytical (geometric) IK, evaluates elbow-up/down branches and joint limits. 
+        Returns the feasible solution closest in orientation to the current transform.
+
+        @param T_ee SE3 Desired end-effector pose in the base frame.
+        @return list[float] Joint angles (rad) if solvable; otherwise None.
+        """
         l_0 = self.robot_cfg.dh_joints[0].d
         l_1 = self.robot_cfg.dh_joints[1].a
         l_2 = self.robot_cfg.dh_joints[2].a
@@ -204,6 +269,18 @@ class KochV1_KinematicsModel:
 
     
     def _calculate_theta_5(self, theta_1, theta_2, theta_3, theta_4, T_ee) -> float:
+        """
+        @brief Compute the final wrist rotation to align end-effector X-axes.
+
+        Uses the angle between current and desired X-axis with the desired Z-axis as rotation axis.
+
+        @param theta_1 float Joint 1 angle (rad).
+        @param theta_2 float Joint 2 angle (rad).
+        @param theta_3 float Joint 3 angle (rad).
+        @param theta_4 float Joint 4 angle (rad).
+        @param T_ee SE3 Desired end-effector pose.
+        @return float Angle for joint 5 in radians.
+        """
         T_before = self.compute_forward_kinematics([theta_1, theta_2, theta_3, theta_4, 0])
         T_after = T_ee
 
@@ -220,13 +297,19 @@ class KochV1_KinematicsModel:
     
     def compute_jacobian(self, joint_angles: List[float]) -> np.ndarray:
         """
-        Compute the Jacobian matrix for the current joint angles.
-        :param joint_angles: List of joint angles.
-        :return: Jacobian matrix for current joint state.
+        @brief Compute the 6×n geometric Jacobian for given joint configuration.
+
+        @param joint_angles list[float] Joint angles (rad).
+        @return np.ndarray Geometric Jacobian matrix for the current joint state.
         """
         return np.asarray(self._compute_jacobian_func(*joint_angles), dtype=float)
     
     def _init_compute_jacobian_func(self) -> Callable:
+        """
+        @brief Build a fast NumPy Jacobian function from a symbolic expression.
+
+        @return Callable Function mapping (q1, …, qn) -> 6×n Jacobian as ndarray-like.
+        """
         J_sp, q_sp = self._build_sympy_jacobian()
 
         J_func = sp.lambdify(q_sp, J_sp, modules="numpy")
@@ -234,7 +317,14 @@ class KochV1_KinematicsModel:
         return J_func
     
     def _build_sympy_jacobian(self):
-        """Build the symbolic Jacobian matrix using SymPy."""
+        """
+        @brief Build the symbolic geometric Jacobian J(q) using SymPy.
+
+        Constructs forward kinematics using DH matrices, collects frame origins and z-axes, and assembles the
+        translational and rotational Jacobian blocks.
+
+        @return tuple[sp.Matrix, tuple] Symbolic Jacobian and the q-symbols.
+        """
 
         # helper function to create a symbolic DH transformation matrix
         def A_sym(a, alpha, d, theta) -> sp.Matrix:
@@ -250,13 +340,13 @@ class KochV1_KinematicsModel:
         
         # build J(q)
         n = len(self.robot_cfg.dh_joints)
-        q  = sp.symbols(f'q1:{n+1}')           # (q1, q2, …, qn)
+        q  = sp.symbols(f'q1:{n+1}')          # (q1, q2, …, qn)
 
         T   = sp.eye(4)
         o   = [sp.Matrix([0, 0, 0])]          # origin of frame 0
         z   = [sp.Matrix([0, 0, 1])]          # z-axis of frame 0
 
-        # Forward kinematics: T0i, oi, zi
+        # Forward kinematics:
         for i, joint in enumerate(self.robot_cfg.dh_joints):
             if joint.type is JointType.REVOLUTE:
                 theta = q[i] + joint.q_offset
@@ -283,12 +373,3 @@ class KochV1_KinematicsModel:
 
         J = sp.Matrix.hstack(*Jv).col_join(sp.Matrix.hstack(*Jw))
         return J, q
-
-
-if __name__ == "__main__":
-
-    model = KochV1_KinematicsModel()
-    print(model.robot_cfg.dh_joints[0].get_transform())
-
-    # speed check forward kinematics
-    print(model.compute_forward_kinematics([0, 0, 0, 0, 0]))
