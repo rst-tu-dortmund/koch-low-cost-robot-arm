@@ -1,3 +1,15 @@
+"""
+@brief Control-table models and dataclass for the Dynamixel XL430-W250.
+
+Provides lightweight Enum types for Operating modes, plain classes that map the EEPROM/RAM
+control tables to `ControlField` descriptors, and a small dataclass bundling per-motor
+calibration such as home position and limits.
+
+@see XL330_M288EEPROMControlTable
+@see XL330_M288RAMControlTable
+"""
+
+
 import numpy as np
 
 from enum import IntEnum
@@ -12,15 +24,25 @@ from typing import (
 
 
 class XL430_W250OperatingModeType(IntEnum):
+    """@brief Operating modes supported by the Dynamixel XL430-W250."""
+
     VELOCITY_CONTROL_MODE           = 1
     POSITION_CONTROL_MODE           = 3
     EXTENDED_POSITION_CONTROL_MODE  = 4
     PWM_CONTROL_MODE                = 16
 
-# Use simple python classes to represent Enum with metadata
 
-# TODO: Check if the entries are correct
 class XL430_W250EEPROMControlTable:
+    """
+    @brief EEPROM control-table fields for the Dynamixel XL430-W250.
+
+    Each attribute is a `ControlField` with (address, size and initial value).
+    These fields reside in non-volatile memory and typically require torque-off to
+    modify.
+
+    @note Assumption: addresses and defaults follow the Robotis XL430-W250 e-Manual.
+    """
+
     MODEL_NUMBER            = ControlField(address=0,  size=2, initial_value=1060)
     MODEL_INFORMATION       = ControlField(address=2,  size=4, initial_value=None)
     FIRMWARE_VERSION        = ControlField(address=6,  size=1, initial_value=None)
@@ -44,8 +66,17 @@ class XL430_W250EEPROMControlTable:
     SHUTDOWN                = ControlField(address=63, size=1, initial_value=52)
 
 
-# TODO: Check if the entries are correct
 class XL430_W250RAMControlTable:
+    """
+    @brief RAM control-table fields for the Dynamixel XL430-W250.
+
+    Each attribute is a `ControlField` with (address, size, initial value at power-on).
+    These fields reside in volatile memory and can be changed while torque is enabled,
+    subject to device rules.
+
+    @note Assumption: addresses and defaults follow the Robotis XL430-W250 e-Manual.
+    """
+    
     TORQUE_ENABLE           = ControlField(address=64,  size=1, initial_value=0)
     LED                     = ControlField(address=65,  size=1, initial_value=0)
     STATUS_RETURN_LEVEL     = ControlField(address=68,  size=1, initial_value=2)
@@ -80,6 +111,16 @@ class XL430_W250RAMControlTable:
 
 @dataclass
 class DynamixelXL430_W250:
+    """
+    @brief Per-motor data and shared specs for the model XL430-W250.
+
+    Stores the device ID, assembly-specific home position, and physical position limits (in
+    DXL ticks). Also exposes class attributes for the model's EEPROM/RAM control tables,
+    tick-per-revolution constant, and operating-mode enum.
+
+    @note `logical_position_limits` are derived as `physical_position_limits - physical_home_position`.
+    """
+
     id: int
     physical_home_position: int
     physical_position_limits: np.ndarray[int, int]

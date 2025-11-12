@@ -1,3 +1,14 @@
+"""
+@brief Control-table models and dataclass for the Dynamixel XL330-M288.
+
+Provides lightweight Enum types for Operating modes, plain classes that map the EEPROM/RAM
+control tables to `ControlField` descriptors, and a small dataclass bundling per-motor
+calibration such as home position and limits.
+
+@see XL330_M288EEPROMControlTable
+@see XL330_M288RAMControlTable
+"""
+
 import numpy as np
 
 from enum import IntEnum
@@ -11,14 +22,26 @@ from typing import (
 )
 
 class XL330_M288OperatingModeType(IntEnum):
+    """@brief Operating modes supported by the Dynamixel XL330-M288."""
+    
     VELOCITY_CONTROL_MODE               = 1
     POSITION_CONTROL_MODE               = 3
     EXTENDED_POSITION_CONTROL_MODE      = 4
     CURRENT_BASED_POSITION_CONTROL_MODE = 5
     PWM_CONTROL_MODE                    = 16
 
-# TODO: Check if the entries are correct
+
 class XL330_M288EEPROMControlTable:
+    """
+    @brief EEPROM control-table fields for the Dynamixel XL330-M288.
+
+    Each attribute is a `ControlField` with (address, size and initial value).
+    These fields reside in non-volatile memory and typically require torque-off to
+    modify.
+
+    @note Assumption: addresses and defaults follow the Robotis XL330-M288 e-Manual.
+    """
+    
     MODEL_NUMBER            = ControlField(address=0,  size=2, initial_value=1200)
     MODEL_INFORMATION       = ControlField(address=2,  size=4, initial_value=None)
     FIRMWARE_VERSION        = ControlField(address=6,  size=1, initial_value=None)
@@ -44,8 +67,17 @@ class XL330_M288EEPROMControlTable:
     SHUTDOWN                = ControlField(address=63, size=1, initial_value=53)
 
 
-# TODO: Check if the entries are correct
 class XL330_M288RAMControlTable:
+    """
+    @brief RAM control-table fields for the Dynamixel XL330-M288.
+
+    Each attribute is a `ControlField` with (address, size, initial value at power-on).
+    These fields reside in volatile memory and can be changed while torque is enabled,
+    subject to device rules.
+
+    @note Assumption: addresses and defaults follow the Robotis XL330-M288 e-Manual.
+    """
+
     TORQUE_ENABLE           = ControlField(address=64,  size=1, initial_value=0)
     LED                     = ControlField(address=65,  size=1, initial_value=0)
     STATUS_RETURN_LEVEL     = ControlField(address=68,  size=1, initial_value=2)
@@ -81,6 +113,16 @@ class XL330_M288RAMControlTable:
 
 @dataclass
 class DynamixelXL330_M288:
+    """
+    @brief Per-motor data and shared specs for the model XL330-M288.
+
+    Stores the device ID, assembly-specific home position, and physical position limits (in
+    DXL ticks). Also exposes class attributes for the model's EEPROM/RAM control tables,
+    tick-per-revolution constant, and operating-mode enum.
+
+    @note `logical_position_limits` are derived as `physical_position_limits - physical_home_position`.
+    """
+
     id: int
     physical_home_position: int
     physical_position_limits: np.ndarray[int, int]
@@ -97,25 +139,3 @@ class DynamixelXL330_M288:
 
     def __post_init__(self):
         self.logical_position_limits = self.physical_position_limits - self.physical_home_position
-                                       
-
-
-
-if __name__ == "__main__":
-    motor1 = DynamixelXL330_M288(1)
-    motor2 = DynamixelXL330_M288(2)
-
-    print(motor1.EEPROM.OPERATING_MODE.address)
-    print(motor1.id)
-
-    print(motor2.EEPROM.OPERATING_MODE.address)
-    print(motor2.id)
-
-    print(motor1.EEPROM is motor2.EEPROM)
-    print(motor1.EEPROM.BAUD_RATE is motor2.EEPROM.BAUD_RATE)
-
-    print(motor1.OperatingModeType.POSITION_CONTROL_MODE == 3)
-    print(motor1.OperatingModeType is motor2.OperatingModeType)
-    print(motor1.OperatingModeType.POSITION_CONTROL_MODE is motor2.OperatingModeType.POSITION_CONTROL_MODE)
-    print(motor1.OperatingModeType.POSITION_CONTROL_MODE == motor2.OperatingModeType.PWM_CONTROL_MODE)
-    
