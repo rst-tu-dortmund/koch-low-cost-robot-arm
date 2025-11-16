@@ -116,30 +116,16 @@ class KochV1_Robot:
         """
         self._dxl_bus.set_gripper_percentage(percentage)
 
-    def set_goal_velocities(self, joint_velocities: List[float]):
+    def set_goal_velocities(self, joint_velocities: List[float], unit=Unit.RAD_S):
         """
         @brief Set joint velocities for the first 5 joints (velocity control).
 
         @param joint_velocities List[float] Target joint velocities in DXL ordered as the kinematic chain expects; 
                                 values are clipped to the motor's supported range before sending.
+        @param Unit Unit of the provided velocities (default: rad/s).
         @note Also updates each motor's `PROFILE_ACCELERATION` based on the requested velocity.
         """
-
-        joint_velocities_verified = []
-        for motor, joint_velocity in zip(self._dxl_bus.motors[:5], joint_velocities):
-            joint_velocity_verified = int(np.clip(joint_velocity, -150, 150))   # limit to max velocity of the motor
-            joint_velocities_verified.append(joint_velocity_verified)
-
-            # see dynamixel profile velocity and profile acceleration
-            # https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/
-            # set max possible acceleration based on velocity
-
-            # FIXME move setting acceleration to dxl_bus.set_goal_velocities
-            #       acceleration may be set wrong cause new velocity is not applied in runtime
-            acceleration_value = int(np.abs(joint_velocity_verified) / 2)
-            self._dxl_bus.write_reg(motor.id, motor.RAM.PROFILE_ACCELERATION, acceleration_value)
-        
-        self._dxl_bus.set_goal_velocities(joint_velocities_verified)
+        self._dxl_bus.set_goal_velocities(joint_velocities, unit)
 
     def read_joint_velocities(self, unit=Unit.RAD_S):
         """
@@ -167,6 +153,7 @@ class KochV1_Robot:
         """
         self._dxl_bus.set_epcm_control_mode()
 
+    # TODO move logic to the dxl_bus, here only API-Call
     def _apply_dh_q_offsets(self):
         """
         @brief Add DH joint offsets to the motors' physical home positions.
@@ -175,7 +162,8 @@ class KochV1_Robot:
         """
         for i, dh_joint in enumerate(self.kinematics_model.robot_cfg.dh_joints):
             self._dxl_bus.motors[i].physical_home_position += to_dxl_units(dh_joint.q_offset, from_unit=Unit.RAD)
-        
+
+    # TODO move to Kinematics-Class, here only API-Call    
     def _create_transform_from_xyz_psi_phi(self, x: float, y: float, z: float, psi: float, phi: float) -> SE3:
         """
         @brief Build an SE3 transform from Cartesian coordinates and two orientation angles.

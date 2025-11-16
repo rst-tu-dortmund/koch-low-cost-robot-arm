@@ -184,11 +184,12 @@ class KochV1_DxlBus(DxlBus):
         logging.debug(f"Gripper Data Write: {gripper_position}")
         self.write_reg(6, DynamixelXL330_M288.RAM.GOAL_POSITION, gripper_position)
 
-    def set_goal_velocities(self, joint_velocities: List[int]):
+    def set_goal_velocities(self, joint_velocities: List[float], unit=Unit.RAD_S):
         """
         @brief Set target velocities for joints 1-5.
 
-        @param joint_velocities list[int] Desired joint velocities in raw Dynamixel units.
+        @param joint_velocities list[float] Desired joint velocities for joints 1-5.
+        @param unit Unit Unit of the input velocities.
         """
 
         if len(joint_velocities) != 5:
@@ -196,8 +197,14 @@ class KochV1_DxlBus(DxlBus):
         
         logging.debug(f"Velocities Write: {joint_velocities}")
 
-        for velocity, motor in zip(joint_velocities, self.motors[:5]):
-            self.write_reg(motor.id, motor.RAM.GOAL_VELOCITY, to_u32(velocity))
+        for motor, joint_velocity in zip(self.motors[:5], joint_velocities):
+            joint_velocity_dxl = to_dxl_units(joint_velocity, unit)
+            joint_velocity_verified = int(np.clip(joint_velocity_dxl, -150, 150))   # limit to max velocity of the motor
+            # see dynamixel profile velocity and profile acceleration
+            # https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/
+            # set max possible acceleration based on velocity
+            acceleration_value = int(np.abs(joint_velocity_verified) / 2)
+            self._set_motor_velocity_and_acceleration(motor, joint_velocity_verified, acceleration_value)
 
     def read_joint_velocities(self, unit=Unit.RAD_S):
         """
