@@ -205,6 +205,43 @@ class KochV1_KinematicsModel:
 
         return T_ee
     
+    def create_transform_from_xyz_psi_phi(self, x: float, y: float, z: float, psi: float, phi: float) -> SE3:
+        """
+        @brief Build an SE3 transform from Cartesian coordinates and two orientation angles.
+
+        Constructs orthonormal axes with Z aligned by `psi` about the global Z, then rotates the
+        local XY frame by `phi` about the intermediate Y to form the final rotation.
+
+        @param x float Position X in meters.
+        @param y float Position Y in meters.
+        @param z float Position Z in meters.
+        @param psi float Elevation of the end-effector Z-axis above the horizontal plane (radians).
+        @param phi float Rotation about the end-effector Z-axis (radians).
+        @return SE3 Homogeneous transform in the base frame.
+        @note Assumption: `x == 0` implies `theta1 = 0` for the base yaw computation.
+        """
+    
+        # Step 1: Calculate theta1 - rotation around the global Z-axis
+        theta1 = np.arctan2(y, x) if x != 0 else 0
+
+
+        z_hat = np.array([np.cos(psi)*np.cos(theta1),
+                          np.cos(psi)*np.sin(theta1),
+                          np.sin(psi)])
+
+        y_ref  = np.array([-np.sin(theta1), np.cos(theta1), 0.0])
+        x_hat0 = np.cross(z_hat, y_ref)
+        x_hat0 /= np.linalg.norm(x_hat0)
+        y_hat0 = np.cross(z_hat, x_hat0)
+
+        cos_phi = np.cos(phi)
+        sin_phi = np.sin(phi)
+        x_hat =  cos_phi * x_hat0 + sin_phi * y_hat0
+        y_hat = -sin_phi * x_hat0 + cos_phi * y_hat0
+
+        R = np.column_stack((x_hat, y_hat, z_hat))   # [X Y Z] as columns
+        return SE3.Rt(R, [x, y, z])
+
     def compute_inverse_kinematics(self, T_ee: SE3) -> List[float] | None:
         """
         @brief Compute joint angles that realize the desired end-effector pose.
@@ -311,8 +348,6 @@ class KochV1_KinematicsModel:
                 return [theta_1, theta_2_elbow_down, theta_3_elbow_down, theta_4_elbow_down, theta_5_elbow_down]
             else:
                 return [theta_1, theta_2_elbow_up, theta_3_elbow_up, theta_4_elbow_up, theta_5_elbow_up]
-
-
     
     def _calculate_theta_5(self, theta_1, theta_2, theta_3, theta_4, T_ee) -> float:
         """
