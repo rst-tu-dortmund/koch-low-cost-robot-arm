@@ -114,3 +114,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /.vscode/settings.json
+*.png
+*.md5
+*.map
+/docs/html/search/*
+/docs/html/*.html
+/docs/html/*.js
+/docs/html/*.css
+/docs/html/*.svg
