@@ -1,0 +1,6 @@
+numpy
+sympy
+spatialmath-python
+sympy
+dynamixel-sdk
+mujoco
