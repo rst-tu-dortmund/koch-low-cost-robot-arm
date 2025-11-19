@@ -76,12 +76,16 @@ class SyncGroup:
         @param control_field ControlField Target control-table field.
         @param motor_ids List[int] Motor IDs to include in the group.
         """
-
+        ## Register start address.
         self.address = control_field.address
+        ## Control field data length
         self.data_length = control_field.size
+        ## Motor IDs in this group
         self.motor_ids = motor_ids
 
+        ## GroupSyncWrite handle for batched writes.
         self._group_sync_write = GroupSyncWrite(port_handler, packet_handler, self.address, self.data_length)
+        ## GroupSyncRead handle for batched reads.
         self._group_sync_read = GroupSyncRead(port_handler, packet_handler, self.address, self.data_length)
 
         for id in self.motor_ids:
@@ -142,32 +146,49 @@ class DxlBus:
         @note The port is not opened until `connect()` or entering the context manager.
         @note Assumption: `motors` may be mutated externally; the default `[]` is shared.
         """
-
+        ## Port name (e.g., `/dev/ttyUSB0`).
         self.port_name = port_name if port_name else self._get_active_port()
+        ## Port baud rate configured on the motors.
         self.baudrate = baudrate
+        ## Port handler for serial communication.
         self.port_handler = PortHandler(self.port_name)
+        ## Packet handler for protocol communication.
         self.packet_handler = PacketHandler(protocol_version)
-
+        ## Motors bound to this bus.
         self.motors: List[DynamixelMotor] = motors
 
+        ## Cached sync groups by name.
         self._sync_groups: Dict[str, SyncGroup] = {}
+        ## Connection state flag.
         self._is_open = False
 
     def __del__(self):
+        """
+        @brief Destructor to ensure the port is closed on object deletion.
+        """
         self.disconnect()
 
     def __enter__(self):
+        """
+        @brief Context manager entry: open the port.
+        """
         self.connect()
         
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
+        """
+        @brief Context manager exit: close the port.
+        """
         self.disconnect()
 
         if exc_type is not None:
             raise exc_value
 
-    def connect(self):        
+    def connect(self):      
+        """
+        @brief Open the serial port for communication.
+        """  
         if not self.port_handler.openPort():
             raise Exception(f'Failed to open port {self.port_name}')
 
@@ -177,6 +198,9 @@ class DxlBus:
         self._is_open = True
         
     def disconnect(self):
+        """
+        @brief Close the serial port if it is open.
+        """
         if self._is_open:
             self.port_handler.closePort()
             self._is_open = False

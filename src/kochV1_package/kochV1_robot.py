@@ -70,8 +70,10 @@ class KochV1_Robot:
         @param dxl_bus KochV1_DxlBus Pre-initialized Dynamixel bus wrapper.
         """
 
+        ## Kinematics model for the Koch V1.1 robot
         self.kinematics_model = KochV1_KinematicsModel()
 
+        ## Dynamixel bus interface
         self._dxl_bus = dxl_bus
 
         self._apply_dh_q_offsets()
@@ -151,7 +153,7 @@ class KochV1_Robot:
 
         @param joint_velocities List[float] Target joint velocities in DXL ordered as the kinematic chain expects; 
                                 values are clipped to the motor's supported range before sending.
-        @param Unit Unit of the provided velocities (default: rad/s).
+        @param unit Unit of the provided velocities (default: rad/s).
         @note Also updates each motor's `PROFILE_ACCELERATION` based on the requested velocity.
         """
         self._dxl_bus.set_goal_velocities(joint_velocities, unit)

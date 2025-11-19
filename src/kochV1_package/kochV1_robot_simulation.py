@@ -70,9 +70,12 @@ class KochV1_Robot_Simulation:
 
         @param path str Path to the Mujoco XML model file.
         """
+        
+        ## Mujoco model for simulation
         self.mjModel = mujoco.MjModel.from_xml_path(os.path.join(os.getcwd(), "src", path))
+        ## Mujoco data for simulation
         self.mjData = mujoco.MjData(self.mjModel)
-
+        ## Kinematics model for the Koch V1.1 robot
         self.kinematics_model = KochV1_KinematicsModel()
 
         # self._apply_dh_q_offsets()

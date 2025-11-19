@@ -53,8 +53,11 @@ class ControlField:
     @param size int Field length in bytes (1, 2, or 4).
     @param initial_value Optional[int] Initial value after reboot.
     """
+    ### Register start address.
     address: int
+    ### Field length in bytes (1, 2, or 4).
     size: int
+    ### Initial value after reboot.
     initial_value: Optional[int]
 
 
@@ -67,7 +70,9 @@ class DynamixelMotor(Protocol):
 
     @note This is a typing protocol; it specifies the expected interface but does not implement it.
     """
+    ## EEPROM class type.
     EEPROM: ClassVar[Type]
+    ## RAM class type.
     RAM:    ClassVar[Type]
 
     id: int

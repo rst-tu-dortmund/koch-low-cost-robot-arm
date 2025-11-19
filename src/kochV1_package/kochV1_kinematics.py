@@ -60,7 +60,9 @@ class JointType(Enum):
 
     Distinguishes between revolute and prismatic joints.
     """
+    ## Joint is revolute (rotational)
     REVOLUTE = 1
+    ## Joint is prismatic (translational)
     PRISMATIC = 2
 
 
@@ -76,13 +78,21 @@ class DHJoint:
 
     @note Angles are in radians; lengths are in meters.
     """
+    ## Joint actuation type (revolute or prismatic).
     type: JointType                 = JointType.REVOLUTE
+    ## Joint name for identification.
     name: str                       = ""
+    ## DH parameter a (link length in meters)
     a: float                        = 0.0                   # link length (m)
+    ## DH parameter alpha (link twist in radians)
     alpha: float                    = 0.0                   # link twist (rad)
+    ## DH parameter d (link offset in meters)
     d: float                        = 0.0                   # link offset (m)
+    ## DH parameter theta (joint angle in radians)
     theta: float                    = 0.0                   # joint angle (rad)
+    ## Joint limits as (min, max) in radians or meters depending on joint type
     q_limits: Tuple[float, float]   = (-np.inf, np.inf)     # joint limits (rad or m)
+    ## Joint offset added to the variable q (rad or m)
     q_offset: float                 = 0.0                   # joint offset (rad or m)
 
     def get_transform(self, q: float = 0.0) -> SE3:
@@ -127,6 +137,8 @@ class RobotConfig:
 
     @param dh_joints Tuple[DHJoint] Ordered DH joints from base to end-effector.
     """
+    
+    ## Tuple of DH joints defining the robot's kinematic chain.
     dh_joints: Tuple[DHJoint]
 
     @staticmethod
@@ -139,9 +151,9 @@ class RobotConfig:
         """
         return RobotConfig(dh_joints=tuple(dh_parameters))
 
-    @staticmethod
-    def from_URDF(urdf_path: str) -> 'RobotConfig':
-        pass
+    # @staticmethod
+    # def from_URDF(urdf_path: str) -> 'RobotConfig':
+    #     pass
 
 
 class KochV1_KinematicsModel:
@@ -163,12 +175,17 @@ class KochV1_KinematicsModel:
             DHJoint(type=JointType.REVOLUTE, a=0,       alpha=0,       d=0.0681,   q_offset=0,                   q_limits=(-np.pi, np.pi)),
         ]
 
+        ## Robot configuration with DH joints
         self._robot_cfg = RobotConfig.from_DH_parameters(joints)
-
+        
+        ## Initialize fast symbolic Jacobian function
         self._compute_jacobian_func = self._init_compute_jacobian_func()
 
     @property
     def robot_cfg(self) -> RobotConfig:
+        """
+        @brief Get the robot configuration.
+        """
         return self._robot_cfg
 
     def compute_forward_kinematics(self, joint_angles: List[float]) -> SE3:
