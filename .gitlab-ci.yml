@@ -1,0 +1,43 @@
+stages: 
+  - build 
+  - deploy
+
+variables:
+  GIT_CLONE_PATH: /builds/doxygen/
+    
+build-doxygen:
+  stage: build
+  image: git.rst.e-technik.tu-dortmund.de:5005/common/docker-group/doxygen
+  before_script:
+    - cd /builds/doxygen/
+    - pwd
+    - git submodule update --init --recursive
+    - pwd
+  script:
+    - pwd
+    - doxygen Doxyfile
+  artifacts: 
+    untracked: true
+  except:
+    - tags
+  tags:
+    - ubuntu
+    - docker
+
+
+pages:
+  stage: deploy
+  script:
+    - mv /builds/doxygen/docs/html/ /builds/doxygen/public/
+  dependencies:
+    - build-doxygen
+  artifacts:
+    paths:
+    - public
+  except:
+    - tags
+  only:
+    - main  
+  tags:
+    - ubuntu
+    - docker
