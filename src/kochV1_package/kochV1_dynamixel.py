@@ -369,6 +369,10 @@ class KochV1_DxlBus(DxlBus):
             motor.physical_home_position += motor.FULL_ROTATION_TICKS
             motor.physical_position_limits += motor.FULL_ROTATION_TICKS
 
+    def apply_dh_q_offsets(self, q_offsets_rad: List[float]):
+        for motor, q_offset in zip(self.motors, q_offsets_rad):
+            motor.physical_home_position += to_dxl_units(q_offset, from_unit=Unit.RAD)
+
 
     def _set_motor_velocity_and_acceleration(
             self, motor: DynamixelXL330_M288 | DynamixelXL430_W250, 

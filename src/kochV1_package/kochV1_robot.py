@@ -184,12 +184,11 @@ class KochV1_Robot:
         """
         self._dxl_bus.set_epcm_control_mode()
 
-    # TODO move logic to the dxl_bus, here only API-Call
     def _apply_dh_q_offsets(self):
         """
         @brief Add DH joint offsets to the motors' physical home positions.
 
         @note This aligns the encoder's logical zero with the DH model's q-offsets.
         """
-        for i, dh_joint in enumerate(self.kinematics_model.robot_cfg.dh_joints):
-            self._dxl_bus.motors[i].physical_home_position += to_dxl_units(dh_joint.q_offset, from_unit=Unit.RAD)
+        q_offsets = [joint.q_offset for joint in self.kinematics_model.robot_cfg.dh_joints]
+        self._dxl_bus.apply_dh_q_offsets(q_offsets)
