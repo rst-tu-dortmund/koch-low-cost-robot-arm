@@ -1,3 +1,32 @@
+# Copyright 2025, Institute for Control Theory and Systems Engineering, 
+# TU Dortmund University
+#
+# Redistribution and use in source and binary forms, with or without 
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, 
+# this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, 
+# this list of conditions and the following disclaimer in the documentation 
+# and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors 
+# may be used to endorse or promote products derived from this software without 
+# specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” 
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+# POSSIBILITY OF SUCH DAMAGE.
+
 import os
 import mujoco
 import numpy as np
@@ -41,9 +70,12 @@ class KochV1_Robot_Simulation:
 
         @param path str Path to the Mujoco XML model file.
         """
+        
+        ## Mujoco model for simulation
         self.mjModel = mujoco.MjModel.from_xml_path(os.path.join(os.getcwd(), "src", path))
+        ## Mujoco data for simulation
         self.mjData = mujoco.MjData(self.mjModel)
-
+        ## Kinematics model for the Koch V1.1 robot
         self.kinematics_model = KochV1_KinematicsModel()
 
         # self._apply_dh_q_offsets()
@@ -108,7 +140,7 @@ class KochV1_Robot_Simulation:
         @param phi float Rotation about the end-effector Z-axis (radians).
         """
 
-        transform = self._create_transform_from_xyz_psi_phi(x, y, z, psi, phi)
+        transform = self.kinematics_model.create_transform_from_xyz_psi_phi(x, y, z, psi, phi)
 
         self.set_gripper_position_from_transform(transform)
 
@@ -131,13 +163,13 @@ class KochV1_Robot_Simulation:
         """
         
         # Get grippper limits from Mujoco model
-        gripper_joint_id = self.mjModel.joint("joint5").id
+        gripper_joint_id = self.mjModel.joint("gripper").id
         lower_limit = self.mjModel.jnt_range[gripper_joint_id][0]
         upper_limit = self.mjModel.jnt_range[gripper_joint_id][1]
         
         target_position = lower_limit + percentage * (upper_limit - lower_limit)
         
-        self.mjData.ctrl[4] = target_position
+        self.mjData.ctrl[5] = target_position
 
     def set_goal_velocities(self, joint_velocities: List[float]):
         """
@@ -147,14 +179,12 @@ class KochV1_Robot_Simulation:
                                 values are clipped to the motor's supported range before sending.
         @note Also updates each motor's `PROFILE_ACCELERATION` based on the requested velocity.
         """
-        self.mjData.ctrl[:5] = joint_velocities  # Zero position control to avoid conflict
         vel = np.array(joint_velocities)
         
         # Integrate velocity commands (previous state is rounded to avoid accumulation of small errors)
         new_positions = np.round(np.array(self.read_joints(unit=Unit.RAD)),2) + vel * self.mjModel.opt.timestep
         
-        
-        print(new_positions)
+        # print(new_positions)
         self.set_joints(new_positions, unit=Unit.RAD)
             
     def read_joint_velocities(self, unit=Unit.RAD_S):
@@ -171,40 +201,3 @@ class KochV1_Robot_Simulation:
             raise ValueError(f"Unsupported unit for joint velocities: {unit}")
         
         return vel
-        
-    def _create_transform_from_xyz_psi_phi(self, x: float, y: float, z: float, psi: float, phi: float) -> SE3:
-        """
-        @brief Build an SE3 transform from Cartesian coordinates and two orientation angles.
-
-        Constructs orthonormal axes with Z aligned by `psi` about the global Z, then rotates the
-        local XY frame by `phi` about the intermediate Y to form the final rotation.
-
-        @param x float Position X in meters.
-        @param y float Position Y in meters.
-        @param z float Position Z in meters.
-        @param psi float Elevation of the end-effector Z-axis above the horizontal plane (radians).
-        @param phi float Rotation about the end-effector Z-axis (radians).
-        @return SE3 Homogeneous transform in the base frame.
-        @note Assumption: `x == 0` implies `theta1 = 0` for the base yaw computation.
-        """
-    
-        # Step 1: Calculate theta1 - rotation around the global Z-axis
-        theta1 = np.arctan2(y, x) if x != 0 else 0
-
-
-        z_hat = np.array([np.cos(psi)*np.cos(theta1),
-                          np.cos(psi)*np.sin(theta1),
-                          np.sin(psi)])
-
-        y_ref  = np.array([-np.sin(theta1), np.cos(theta1), 0.0])
-        x_hat0 = np.cross(z_hat, y_ref)
-        x_hat0 /= np.linalg.norm(x_hat0)
-        y_hat0 = np.cross(z_hat, x_hat0)
-
-        cos_phi = np.cos(phi)
-        sin_phi = np.sin(phi)
-        x_hat =  cos_phi * x_hat0 + sin_phi * y_hat0
-        y_hat = -sin_phi * x_hat0 + cos_phi * y_hat0
-
-        R = np.column_stack((x_hat, y_hat, z_hat))   # [X Y Z] as columns
-        return SE3.Rt(R, [x, y, z])

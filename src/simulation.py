@@ -43,11 +43,11 @@ with mujoco.viewer.launch_passive(r.mjModel, r.mjData) as viewer:
     
     # Example commands:
     
-    # r.set_goal_velocities([0, 0, 50, 0, 0])
+    # r.set_goal_velocities([0, 0, -50, 0, 0])
     
-    # r.set_joints([0, 0, 45, 0, 0], unit=utils.Unit.DEG)
+    # r.set_joints([0, 0, -45, 0, 0], unit=utils.Unit.DEG)
     
-    # r.set_gripper_percentage(0.5)
+    # r.set_gripper_percentage(0.2)
     
     
     # Rudimentary time keeping, will drift relative to wall clock.

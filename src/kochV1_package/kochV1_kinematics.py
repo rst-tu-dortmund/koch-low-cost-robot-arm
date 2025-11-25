@@ -1,3 +1,32 @@
+# Copyright 2025, Institute for Control Theory and Systems Engineering, 
+# TU Dortmund University
+#
+# Redistribution and use in source and binary forms, with or without 
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, 
+# this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, 
+# this list of conditions and the following disclaimer in the documentation 
+# and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors 
+# may be used to endorse or promote products derived from this software without 
+# specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” 
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+# POSSIBILITY OF SUCH DAMAGE.
+
 from __future__ import annotations
 
 """
@@ -31,7 +60,9 @@ class JointType(Enum):
 
     Distinguishes between revolute and prismatic joints.
     """
+    ## Joint is revolute (rotational)
     REVOLUTE = 1
+    ## Joint is prismatic (translational)
     PRISMATIC = 2
 
 
@@ -47,13 +78,21 @@ class DHJoint:
 
     @note Angles are in radians; lengths are in meters.
     """
+    ## Joint actuation type (revolute or prismatic).
     type: JointType                 = JointType.REVOLUTE
+    ## Joint name for identification.
     name: str                       = ""
+    ## DH parameter a (link length in meters)
     a: float                        = 0.0                   # link length (m)
+    ## DH parameter alpha (link twist in radians)
     alpha: float                    = 0.0                   # link twist (rad)
+    ## DH parameter d (link offset in meters)
     d: float                        = 0.0                   # link offset (m)
+    ## DH parameter theta (joint angle in radians)
     theta: float                    = 0.0                   # joint angle (rad)
+    ## Joint limits as (min, max) in radians or meters depending on joint type
     q_limits: Tuple[float, float]   = (-np.inf, np.inf)     # joint limits (rad or m)
+    ## Joint offset added to the variable q (rad or m)
     q_offset: float                 = 0.0                   # joint offset (rad or m)
 
     def get_transform(self, q: float = 0.0) -> SE3:
@@ -98,6 +137,8 @@ class RobotConfig:
 
     @param dh_joints Tuple[DHJoint] Ordered DH joints from base to end-effector.
     """
+    
+    ## Tuple of DH joints defining the robot's kinematic chain.
     dh_joints: Tuple[DHJoint]
 
     @staticmethod
@@ -110,9 +151,9 @@ class RobotConfig:
         """
         return RobotConfig(dh_joints=tuple(dh_parameters))
 
-    @staticmethod
-    def from_URDF(urdf_path: str) -> 'RobotConfig':
-        pass
+    # @staticmethod
+    # def from_URDF(urdf_path: str) -> 'RobotConfig':
+    #     pass
 
 
 class KochV1_KinematicsModel:
@@ -134,12 +175,17 @@ class KochV1_KinematicsModel:
             DHJoint(type=JointType.REVOLUTE, a=0,       alpha=0,       d=0.0681,   q_offset=0,                   q_limits=(-np.pi, np.pi)),
         ]
 
+        ## Robot configuration with DH joints
         self._robot_cfg = RobotConfig.from_DH_parameters(joints)
-
+        
+        ## Initialize fast symbolic Jacobian function
         self._compute_jacobian_func = self._init_compute_jacobian_func()
 
     @property
     def robot_cfg(self) -> RobotConfig:
+        """
+        @brief Get the robot configuration.
+        """
         return self._robot_cfg
 
     def compute_forward_kinematics(self, joint_angles: List[float]) -> SE3:
@@ -159,6 +205,43 @@ class KochV1_KinematicsModel:
 
         return T_ee
     
+    def create_transform_from_xyz_psi_phi(self, x: float, y: float, z: float, psi: float, phi: float) -> SE3:
+        """
+        @brief Build an SE3 transform from Cartesian coordinates and two orientation angles.
+
+        Constructs orthonormal axes with Z aligned by `psi` about the global Z, then rotates the
+        local XY frame by `phi` about the intermediate Y to form the final rotation.
+
+        @param x float Position X in meters.
+        @param y float Position Y in meters.
+        @param z float Position Z in meters.
+        @param psi float Elevation of the end-effector Z-axis above the horizontal plane (radians).
+        @param phi float Rotation about the end-effector Z-axis (radians).
+        @return SE3 Homogeneous transform in the base frame.
+        @note Assumption: `x == 0` implies `theta1 = 0` for the base yaw computation.
+        """
+    
+        # Step 1: Calculate theta1 - rotation around the global Z-axis
+        theta1 = np.arctan2(y, x) if x != 0 else 0
+
+
+        z_hat = np.array([np.cos(psi)*np.cos(theta1),
+                          np.cos(psi)*np.sin(theta1),
+                          np.sin(psi)])
+
+        y_ref  = np.array([-np.sin(theta1), np.cos(theta1), 0.0])
+        x_hat0 = np.cross(z_hat, y_ref)
+        x_hat0 /= np.linalg.norm(x_hat0)
+        y_hat0 = np.cross(z_hat, x_hat0)
+
+        cos_phi = np.cos(phi)
+        sin_phi = np.sin(phi)
+        x_hat =  cos_phi * x_hat0 + sin_phi * y_hat0
+        y_hat = -sin_phi * x_hat0 + cos_phi * y_hat0
+
+        R = np.column_stack((x_hat, y_hat, z_hat))   # [X Y Z] as columns
+        return SE3.Rt(R, [x, y, z])
+
     def compute_inverse_kinematics(self, T_ee: SE3) -> List[float] | None:
         """
         @brief Compute joint angles that realize the desired end-effector pose.
@@ -265,8 +348,6 @@ class KochV1_KinematicsModel:
                 return [theta_1, theta_2_elbow_down, theta_3_elbow_down, theta_4_elbow_down, theta_5_elbow_down]
             else:
                 return [theta_1, theta_2_elbow_up, theta_3_elbow_up, theta_4_elbow_up, theta_5_elbow_up]
-
-
     
     def _calculate_theta_5(self, theta_1, theta_2, theta_3, theta_4, T_ee) -> float:
         """

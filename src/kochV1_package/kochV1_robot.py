@@ -1,3 +1,32 @@
+# Copyright 2025, Institute for Control Theory and Systems Engineering, 
+# TU Dortmund University
+#
+# Redistribution and use in source and binary forms, with or without 
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice, 
+# this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice, 
+# this list of conditions and the following disclaimer in the documentation 
+# and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors 
+# may be used to endorse or promote products derived from this software without 
+# specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” 
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+# POSSIBILITY OF SUCH DAMAGE.
+
 """
 @brief High-level robot control interface for robot arm Koch V1.1.
 
@@ -41,8 +70,10 @@ class KochV1_Robot:
         @param dxl_bus KochV1_DxlBus Pre-initialized Dynamixel bus wrapper.
         """
 
+        ## Kinematics model for the Koch V1.1 robot
         self.kinematics_model = KochV1_KinematicsModel()
 
+        ## Dynamixel bus interface
         self._dxl_bus = dxl_bus
 
         self._apply_dh_q_offsets()
@@ -93,7 +124,7 @@ class KochV1_Robot:
         @param phi float Rotation about the end-effector Z-axis (radians).
         """
 
-        transform = self._create_transform_from_xyz_psi_phi(x, y, z, psi, phi)
+        transform = self.kinematics_model.create_transform_from_xyz_psi_phi(x, y, z, psi, phi)
 
         self.set_gripper_position_from_transform(transform)
 
@@ -122,7 +153,7 @@ class KochV1_Robot:
 
         @param joint_velocities List[float] Target joint velocities in DXL ordered as the kinematic chain expects; 
                                 values are clipped to the motor's supported range before sending.
-        @param Unit Unit of the provided velocities (default: rad/s).
+        @param unit Unit of the provided velocities (default: rad/s).
         @note Also updates each motor's `PROFILE_ACCELERATION` based on the requested velocity.
         """
         self._dxl_bus.set_goal_velocities(joint_velocities, unit)
@@ -153,50 +184,11 @@ class KochV1_Robot:
         """
         self._dxl_bus.set_epcm_control_mode()
 
-    # TODO move logic to the dxl_bus, here only API-Call
     def _apply_dh_q_offsets(self):
         """
         @brief Add DH joint offsets to the motors' physical home positions.
 
         @note This aligns the encoder's logical zero with the DH model's q-offsets.
         """
-        for i, dh_joint in enumerate(self.kinematics_model.robot_cfg.dh_joints):
-            self._dxl_bus.motors[i].physical_home_position += to_dxl_units(dh_joint.q_offset, from_unit=Unit.RAD)
-
-    # TODO move to Kinematics-Class, here only API-Call    
-    def _create_transform_from_xyz_psi_phi(self, x: float, y: float, z: float, psi: float, phi: float) -> SE3:
-        """
-        @brief Build an SE3 transform from Cartesian coordinates and two orientation angles.
-
-        Constructs orthonormal axes with Z aligned by `psi` about the global Z, then rotates the
-        local XY frame by `phi` about the intermediate Y to form the final rotation.
-
-        @param x float Position X in meters.
-        @param y float Position Y in meters.
-        @param z float Position Z in meters.
-        @param psi float Elevation of the end-effector Z-axis above the horizontal plane (radians).
-        @param phi float Rotation about the end-effector Z-axis (radians).
-        @return SE3 Homogeneous transform in the base frame.
-        @note Assumption: `x == 0` implies `theta1 = 0` for the base yaw computation.
-        """
-    
-        # Step 1: Calculate theta1 - rotation around the global Z-axis
-        theta1 = np.arctan2(y, x) if x != 0 else 0
-
-
-        z_hat = np.array([np.cos(psi)*np.cos(theta1),
-                          np.cos(psi)*np.sin(theta1),
-                          np.sin(psi)])
-
-        y_ref  = np.array([-np.sin(theta1), np.cos(theta1), 0.0])
-        x_hat0 = np.cross(z_hat, y_ref)
-        x_hat0 /= np.linalg.norm(x_hat0)
-        y_hat0 = np.cross(z_hat, x_hat0)
-
-        cos_phi = np.cos(phi)
-        sin_phi = np.sin(phi)
-        x_hat =  cos_phi * x_hat0 + sin_phi * y_hat0
-        y_hat = -sin_phi * x_hat0 + cos_phi * y_hat0
-
-        R = np.column_stack((x_hat, y_hat, z_hat))   # [X Y Z] as columns
-        return SE3.Rt(R, [x, y, z])
+        q_offsets = [joint.q_offset for joint in self.kinematics_model.robot_cfg.dh_joints]
+        self._dxl_bus.apply_dh_q_offsets(q_offsets)
