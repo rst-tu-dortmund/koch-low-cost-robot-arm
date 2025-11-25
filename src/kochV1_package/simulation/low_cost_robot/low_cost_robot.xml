@@ -1,117 +1,334 @@
-<!-- MIT License
+                                 <!-- Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
 
-Copyright (c) 2024 Alexander Koch
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+   1. Definitions.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. -->
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
 
-<mujoco model="low_cost_robot">
-    <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
-    <!-- The timestep has a big influence on the contacts stability -->
-    <option cone="elliptic" impratio="10" timestep="0.001"/>
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
 
-    <asset>
-        <mesh file="base_link.stl" scale="0.001 0.001 0.001"/>
-        <mesh file="first-bracket-motor_1.stl" scale="0.001 0.001 0.001"/>
-        <mesh file="shoulder-to-elbow-motor_v1_1.stl" scale="0.001 0.001 0.001"/>
-        <mesh file="elbow-to-wrist-motor-reference_v1_1.stl" scale="0.001 0.001 0.001"/>
-        <mesh file="gripper-static-motor-pt1.stl" scale="0.001 0.001 0.001"/>
-        <mesh file="gripper-static-motor-pt2.stl" scale="0.001 0.001 0.001"/>
-        <mesh file="gripper-moving-part-dumb_v2_1.stl" scale="0.001 0.001 0.001"/>
-    </asset>
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
 
-    <default>
-        <default class="low_cost_robot">
-            <general biastype="affine"/>
-            <!-- NOTE: the joint pos are defined in world frame, so they're built by summing over urdf relative joint positioning -->
-            <!-- NOTE: values other than axis and pos here have not been properly identified -->
-            <joint axis="0 1 0"/>
-            <default class="joint1">
-                <joint axis="0 0 1" pos="0.00025 0.06875 0.0409" range="-3.14158 3.14158" damping="0.5"/>
-                <position ctrlrange="-3.14158 3.14158" kp="25"/>
-            </default>
-            <default class="joint2">
-                <joint axis="1 0 0" pos="0.01945 0.06895 0.05515" range="-3.14158 3.14158" damping="0.5"/>
-                <position ctrlrange="-3.14158 3.14158" kp="25"/>
-            </default>
-            <default class="joint3">
-                <joint axis="1 0 0" pos="-0.0143 0.08375 0.16345" range="-3.14158 3.14158" damping="0.5"/>
-                <position ctrlrange="-3.14158 3.14158" kp="25"/>
-            </default>
-            <default class="joint4">
-                <joint axis="0 -1 0" pos="-0.000893 0.128688 0.163437" range="-3.14158 3.14158" damping="0.5"/>
-                <position ctrlrange="-3.14158 3.14158" kp="25"/>
-            </default>
-            <default class="joint5">
-                <joint axis="0 0 -1" pos="-0.008443 0.141678 0.177687" range="-2.45 0.032" damping="0.5"/>
-                <position ctrlrange="-2.45 0.032" kp="25"/>
-            </default>
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [2025] [https://github.com/google-deepmind/mujoco_menagerie/tree/main/low_cost_robot_arm]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License. -->
+
+<mujoco model="low_cost_robot_arm">
+  <compiler angle="radian" meshdir="assets"/>
+
+  <option integrator="implicitfast" cone="elliptic" impratio="10"/>
+
+  <default>
+    <default class="low_cost_robot_arm">
+      <joint armature="0.5" frictionloss="0.2"/>
+      <position kp="100" kv="10" forcerange="-87 87" inheritrange="1"/>
+      <default class="visual">
+        <geom type="mesh" group="2" contype="0" conaffinity="0"/>
+      </default>
+      <default class="collision">
+        <geom type="mesh" group="3" mass="0" density="0"/>
+        <default class="pad_box1">
+          <geom type="box" friction="0.7" solimp="0.95 0.99 0.001" solref="0.004 1" mass="0" priority="1"
+            size="0.002 0.002 0.0025" rgba="0.2 0.2 0.2 1"/>
         </default>
+        <default class="pad_box2">
+          <geom type="box" friction="0.6" solimp="0.95 0.99 0.001" solref="0.004 1" mass="0" priority="1"
+            size="0.002 0.002 0.0052" rgba="0.1 0.1 0.1 1"/>
+        </default>
+      </default>
     </default>
+  </default>
 
-    <worldbody>
-        <body name="base_link">
-            <geom type="mesh" name="base_link" mesh="base_link" rgba="0.1 0.1 0.1 1"/>
-            <body name="joint1">
-                <joint name="joint1" class="joint1"/>
-                <geom type="mesh" name="joint1" mesh="first-bracket-motor_1" rgba="0.1 0.1 0.1 1"/>
-                <body name="joint2">
-                    <joint name="joint2" class="joint2"/>
-                    <geom type="mesh" name="joint2" mesh="shoulder-to-elbow-motor_v1_1" rgba="0.1 0.1 0.1 1"/>
-                    <body name="joint3">
-                        <joint name="joint3" class="joint3"/>
-                        <geom type="mesh" name="joint3" mesh="elbow-to-wrist-motor-reference_v1_1" rgba="0.1 0.1 0.1 1"/>
-                        <body name="joint4">
-                            <joint name="joint4" class="joint4"/>
-                            <geom type="mesh" name="joint4-pt1" mesh="gripper-static-motor-pt1" rgba="0.1 0.1 0.1 1"/>
-                            <geom type="mesh" name="joint4" mesh="gripper-static-motor-pt2" rgba="0.1 0.1 0.1 1" contype="0" conaffinity="0"/>
-                            
-                            <!-- Rectangular pad for contact -->
-                            <body name="joint4-pad">
-                                <geom type="box" condim="3" friction="0.7" mass="0.01" solimp="0.95 0.99 0.001" solref="0.004 1" name="static_finger_pad" size="0.006 0.006 0.006" pos="0.0135 0.192 0.1635" priority="1" rgba="0 0 0 0"/>
-                            </body>
-                            
-                            <body name="joint5">
-                                <joint name="joint5" class="joint5"/>
-                                <geom type="mesh" name="joint5" mesh="gripper-moving-part-dumb_v2_1" rgba="0.1 0.1 0.1 1" contype="0" conaffinity="0"/>
-                                
-                                <!-- Rectangular pad for contact -->
-                                <body name="joint5-pad">
-                                    <geom type="box" condim="3" friction="0.7" mass="0.01" solimp="0.95 0.99 0.001" solref="0.004 1" name="moving_finger_pad" size="0.006 0.006 0.006" pos="-0.0007 0.192 0.1635" euler="0 0 -0.3" priority="1" rgba="0 0 0 0"/>
-                                </body>
+  <asset>
+    <material name="black" rgba="0.1 0.1 0.1 1"/>
+    <material name="white" rgba="0.8 0.8 0.8 1"/>
 
-                            </body>
-                            <!-- End effector frame in the middle of the two grippers -->
-                            <body>
-                                <geom type="sphere" name="end_effector" size="0.001" pos="-0.005 0.1935 0.1635" contype="0" conaffinity="0" rgba="0 0 0 0"/>
-                            </body>
-                        </body>
-                    </body>
+    <mesh name="base_link" file="base_link.stl"/>
+    <mesh name="shoulder_rotation" file="shoulder_rotation.stl"/>
+    <mesh name="shoulder_to_elbow" file="shoulder_to_elbow.stl"/>
+    <mesh name="elbow_to_wrist_extension" file="elbow_to_wrist_extension.stl"/>
+    <mesh name="elbow_to_wrist" file="elbow_to_wrist.stl"/>
+    <mesh name="gripper_static_finger" file="gripper_static_finger.stl"/>
+    <mesh name="gripper_moving_finger" file="gripper_moving_finger.stl"/>
+    <mesh name="base_link_motor" file="base_link_motor.stl"/>
+    <mesh name="shoulder_rotation_motor" file="shoulder_rotation_motor.stl"/>
+    <mesh name="shoulder_to_elbow_motor" file="shoulder_to_elbow_motor.stl"/>
+    <mesh name="elbow_to_wrist_extension_motor" file="elbow_to_wrist_extension_motor.stl"/>
+    <mesh name="elbow_to_wrist_motor" file="elbow_to_wrist_motor.stl"/>
+    <mesh name="gripper_static_finger_motor" file="gripper_static_finger_motor.stl"/>
+    <mesh name="base_link_collision" file="base_link_collision.stl"/>
+    <mesh name="shoulder_rotation_collision" file="shoulder_rotation_collision.stl"/>
+    <mesh name="shoulder_to_elbow_collision" file="shoulder_to_elbow_collision.stl"/>
+    <mesh name="elbow_to_wrist_extension_collision" file="elbow_to_wrist_extension_collision.stl"/>
+    <mesh name="elbow_to_wrist_collision" file="elbow_to_wrist_collision.stl"/>
+    <mesh name="gripper_static_finger_collision_1" file="gripper_static_finger_collision_1.stl"/>
+    <mesh name="gripper_static_finger_collision_2" file="gripper_static_finger_collision_2.stl"/>
+    <mesh name="gripper_moving_finger_collision_1" file="gripper_moving_finger_collision_1.stl"/>
+    <mesh name="gripper_moving_finger_collision_2" file="gripper_moving_finger_collision_2.stl"/>
+  </asset>
+
+  <worldbody>
+    <body name="base_link" childclass="low_cost_robot_arm">
+      <geom mesh="base_link" class="visual" material="white"/>
+      <geom mesh="base_link_motor" class="visual" material="black"/>
+      <geom mesh="base_link_collision" class="collision"/>
+      <body name="shoulder_rotation" pos="0.012 0 0.0409">
+        <inertial pos="0.011924 -0.00048792 0.013381" quat="-0.0190903 0.705417 0.0178052 0.708312" mass="0.05014"
+          diaginertia="1.44921e-05 1.2371e-05 7.59138e-06"/>
+        <joint name="base_rotation" pos="0 0 0" axis="0 0 -1" range="-2.2 2.2"/>
+        <geom mesh="shoulder_rotation" class="visual" material="white"/>
+        <geom mesh="shoulder_rotation_motor" class="visual" material="black"/>
+        <geom mesh="shoulder_rotation_collision" class="collision"/>
+        <body name="shoulder_to_elbow" pos="0 -0.0209 0.0154">
+          <inertial pos="0.0011747 0.02097 0.071547" quat="0.998768 2.01447e-05 0.0496266 0.000367169" mass="0.050177"
+            diaginertia="3.73065e-05 3.3772e-05 7.94901e-06"/>
+          <joint name="pitch" pos="0 0 0" axis="0 1 0" range="-1.57 0.6"/>
+          <geom mesh="shoulder_to_elbow" class="visual" material="white"/>
+          <geom mesh="shoulder_to_elbow_motor" class="visual" material="black"/>
+          <geom mesh="shoulder_to_elbow_collision" class="collision"/>
+          <body name="elbow_to_wrist_extension" pos="-0.0148 0.0065 0.1083">
+            <inertial pos="-0.05537 0.014505 0.0028659" quat="8.17663e-05 0.710999 -4.16983e-05 0.703193" mass="0.06379"
+              diaginertia="2.45081e-05 2.2231e-05 7.34061e-06"/>
+            <joint name="elbow" pos="0 0 0" axis="0 -1 0" range="-1.57 1.45"/>
+            <geom mesh="elbow_to_wrist_extension" class="visual" material="white"/>
+            <geom mesh="elbow_to_wrist_extension_motor" class="visual" material="black"/>
+            <geom mesh="elbow_to_wrist_extension_collision" class="collision"/>
+            <body name="elbow_to_wrist" pos="-0.10048 5e-05 0.0026999">
+              <inertial pos="-0.02652 0.019195 -9.0614e-06" quat="0.707361 0.706812 0.00580344 0.00484124"
+                mass="0.019805" diaginertia="2.95813e-06 2.8759e-06 1.07787e-06"/>
+              <joint name="wrist_pitch" pos="0 0 0" axis="0 1 0" range="-2.0 2.0"/>
+              <geom mesh="elbow_to_wrist" class="visual" material="white"/>
+              <geom mesh="elbow_to_wrist_motor" class="visual" material="black"/>
+              <geom mesh="elbow_to_wrist_collision" class="collision"/>
+              <body name="gripper_static_finger" pos="-0.045 0.013097 0">
+                <inertial pos="-0.019091 0.0053379 0.00018011" quat="0.105295 0.703509 -0.0986543 0.695885"
+                  mass="0.029277" diaginertia="8.11303e-06 7.14908e-06 3.27429e-06"/>
+                <joint name="wrist_roll" pos="0 0 0" axis="1 0 0" range="-3.14 3.14"/>
+                <geom mesh="gripper_static_finger" class="visual" material="white"/>
+                <geom mesh="gripper_static_finger_motor" class="visual" material="black"/>
+                <geom mesh="gripper_static_finger_collision_1" class="collision"/>
+                <geom mesh="gripper_static_finger_collision_2" class="collision"/>
+                <geom class="pad_box1" name="gripper_static_finger_pad_1" pos="-0.0668 0.0105 0.00045"/>
+                <geom class="pad_box2" name="gripper_static_finger_pad_3" pos="-0.0628 0.0105 0.0005"/>
+                <body name="gripper_moving_finger" pos="-0.01315 -0.0075 0.0145">
+                  <inertial pos="-0.02507 0.0010817 -0.01414" quat="0.528148 0.5474 0.466496 0.451436" mass="0.012831"
+                    diaginertia="3.49922e-06 2.45768e-06 1.4645e-06"/>
+                  <joint name="gripper" pos="0 0 0" axis="0 0 -1" range="-1.60 0.032" frictionloss="0.1"/>
+                  <geom mesh="gripper_moving_finger" class="visual" material="white"/>
+                  <geom mesh="gripper_moving_finger_collision_1" class="collision"/>
+                  <geom mesh="gripper_moving_finger_collision_2" class="collision"/>
+                  <geom class="pad_box1" name="gripper_moving_finger_pad_1" pos="-0.0535 0.0113 -0.01395"/>
+                  <geom class="pad_box2" name="gripper_moving_finger_pad_3" pos="-0.0495 0.0113 -0.01395"/>
                 </body>
+              </body>
             </body>
+          </body>
         </body>
-    </worldbody>
+      </body>
+    </body>
+  </worldbody>
 
-    <actuator>
-        <position class="joint1" name="joint1" joint="joint1"/>
-        <position class="joint2" name="joint2" joint="joint2"/>
-        <position class="joint3" name="joint3" joint="joint3"/>
-        <position class="joint4" name="joint4" joint="joint4"/>
-        <position class="joint5" name="joint5" joint="joint5"/>
-    </actuator>
+  <contact>
+    <exclude name="exclude_base_link_shoulder_rotation" body1="base_link" body2="shoulder_rotation"/>
+  </contact>
+
+  <actuator>
+    <position class="low_cost_robot_arm" name="base_rotation" joint="base_rotation" forcerange="-87 87"/>
+    <position class="low_cost_robot_arm" name="pitch" joint="pitch" forcerange="-87 87"/>
+    <position class="low_cost_robot_arm" name="elbow" joint="elbow" forcerange="-87 87"/>
+    <position class="low_cost_robot_arm" name="wrist_pitch" joint="wrist_pitch" forcerange="-12 12"/>
+    <position class="low_cost_robot_arm" name="wrist_roll" joint="wrist_roll" forcerange="-10 10"/>
+    <position class="low_cost_robot_arm" name="gripper" joint="gripper" forcerange="-5 5"/>
+  </actuator>
+
+  <keyframe>
+    <key name="home" qpos="0 0 0 0 0 0" ctrl="0 0 0 0 0 0"/>
+  </keyframe>
 </mujoco>

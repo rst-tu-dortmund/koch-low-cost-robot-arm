@@ -163,13 +163,13 @@ class KochV1_Robot_Simulation:
         """
         
         # Get grippper limits from Mujoco model
-        gripper_joint_id = self.mjModel.joint("joint5").id
+        gripper_joint_id = self.mjModel.joint("gripper").id
         lower_limit = self.mjModel.jnt_range[gripper_joint_id][0]
         upper_limit = self.mjModel.jnt_range[gripper_joint_id][1]
         
         target_position = lower_limit + percentage * (upper_limit - lower_limit)
         
-        self.mjData.ctrl[4] = target_position
+        self.mjData.ctrl[5] = target_position
 
     def set_goal_velocities(self, joint_velocities: List[float]):
         """
@@ -179,14 +179,12 @@ class KochV1_Robot_Simulation:
                                 values are clipped to the motor's supported range before sending.
         @note Also updates each motor's `PROFILE_ACCELERATION` based on the requested velocity.
         """
-        self.mjData.ctrl[:5] = joint_velocities  # Zero position control to avoid conflict
         vel = np.array(joint_velocities)
         
         # Integrate velocity commands (previous state is rounded to avoid accumulation of small errors)
         new_positions = np.round(np.array(self.read_joints(unit=Unit.RAD)),2) + vel * self.mjModel.opt.timestep
         
-        
-        print(new_positions)
+        # print(new_positions)
         self.set_joints(new_positions, unit=Unit.RAD)
             
     def read_joint_velocities(self, unit=Unit.RAD_S):
