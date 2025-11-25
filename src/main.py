@@ -1,31 +1,55 @@
-# Copyright 2025, Institute for Control Theory and Systems Engineering, 
-# TU Dortmund University
-#
-# Redistribution and use in source and binary forms, with or without 
-# modification, are permitted provided that the following conditions are met:
-#
-# 1. Redistributions of source code must retain the above copyright notice, 
-# this list of conditions and the following disclaimer.
-#
-# 2. Redistributions in binary form must reproduce the above copyright notice, 
-# this list of conditions and the following disclaimer in the documentation 
-# and/or other materials provided with the distribution.
-#
-# 3. Neither the name of the copyright holder nor the names of its contributors 
-# may be used to endorse or promote products derived from this software without 
-# specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” 
-# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
-# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
-# POSSIBILITY OF SUCH DAMAGE.
+"""
+@mainpage
+This is the <b>RST</b> documentation for the KochV1 low-cost robot arm for educational use.
+
+For the related research publication, please see: 
+
+The authors gratefully acknowledge the work of Alexander Koch whose open-source
+implementation of the Koch V1 robot arm served as a basis for this software package.
+You can find the original repository here: https://github.com/AlexanderKoch-Koch/low_cost_robot (MIT License).
+Furthermore, we acknowledge the adaptions from Jess Moss and the related repository (https://github.com/jess-moss/koch-v1-1, Apache-2.0 License)
+and the Mujoco simulation model from "mujoco_menagerie" (https://github.com/google-deepmind/mujoco_menagerie/tree/main/low_cost_robot_arm, Apache-2.0 License).
+
+The software is provided under a BSD-3-Clause license.
+Work from the acknowledged repositories may be under different licenses; please refer to the given notes and their respective documentation for details.
+
+@authors
+Heiko Renz<SUP>1</SUP>, Stefan Schütte<SUP>1</SUP>, Martin Krüger<SUP>1</SUP>, Mikhail Krigman<SUP>2</SUP>, Torsten Bertram<SUP>1</SUP>
+
+1: Institute for Control Theory and Systems Engineering, TU Dortmund University, Germany  
+2: Student at TU Dortmund University, Germany
+
+@copyright
+Copyright 2025, Institute for Control Theory and Systems Engineering, 
+TU Dortmund University
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, 
+this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, 
+this list of conditions and the following disclaimer in the documentation 
+and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors 
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” 
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+POSSIBILITY OF SUCH DAMAGE.
+
+"""
 
 import logging
 import time
