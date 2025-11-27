@@ -121,7 +121,7 @@ class KochV1_DxlBus(DxlBus):
 
         for motor in self.motors:
             self._disable_torque(motor)
-        
+
         self.disconnect()
         
         if exc_type is not None:
@@ -142,7 +142,10 @@ class KochV1_DxlBus(DxlBus):
         self.make_sync_group("joint_angles_read", DynamixelXL430_W250.RAM.PRESENT_POSITION, [1, 2, 3, 4, 5])  # motor 6 is gripper 
 
         self.make_sync_group("goal_velocities", DynamixelXL430_W250.RAM.GOAL_VELOCITY, [1, 2, 3, 4, 5])  # motor 6 is gripper
-        self.make_sync_group("joint_velocities_read", DynamixelXL430_W250.RAM.PRESENT_VELOCITY, [1, 2, 3, 4, 5])  # motor 6 is gripper 
+        self.make_sync_group("joint_velocities_read", DynamixelXL430_W250.RAM.PRESENT_VELOCITY, [1, 2, 3, 4, 5])  # motor 6 is gripper
+
+        # use HOMING_OFFSET register as storage for physical home position
+        self.make_sync_group("homing_offsets", DynamixelXL430_W250.EEPROM.HOMING_OFFSET, [1, 2, 3, 4, 5, 6])  # all motors
 
     def set_joints(self, joint_angles: List[float], unit: Unit = Unit.RAD):
         """
@@ -306,7 +309,45 @@ class KochV1_DxlBus(DxlBus):
 
         self._enable_torque(motor)
 
-    def _init_motors(self, p_home: List[int]):
+    def _read_homing_offsets(self) -> List[int]:
+        """
+        @brief Read physical home positions from all motors.
+        
+        Use HOMING_OFFSET from EEPROM as storage for physical home position.
+        Set it to 0 while connection is on to avoid confusion.
+
+        @note Torque must be disabled before editing HOMING_OFFSET.
+        
+        @return list[int] Physical home positions for motors 1-6.
+        """
+
+        data = self._sync_groups["homing_offsets"].read()
+
+        homing_offsets_dxl = []
+        for value, motor in zip(data.values(), self.motors[:5]):
+            homing_offset = unpack_i32_le(value)
+            homing_offsets_dxl.append(homing_offset)
+
+        return homing_offsets_dxl
+
+    def _set_homing_offsets(self, homing_offsets: List[int]):
+        """
+        @brief Save physical home positions to all motors.
+
+        Use HOMING_OFFSET from EEPROM as storage for physical home position.
+        Set it to 0 while connection is on to avoid confusion.
+
+        @note Torque must be disabled before editing HOMING_OFFSET.
+        """
+
+        data_write = {}
+
+        for homing_offset, motor in zip(homing_offsets, self.motors):  
+            data_write[motor.id] = homing_offset
+
+        self._sync_groups["homing_offsets"].write(data=data_write)
+
+    def _init_motors(self, p_home: List[int]) -> List[DynamixelXL430_W250 | DynamixelXL330_M288]:
         """
         @brief Build motor objects with physical home positions and limits.
 
