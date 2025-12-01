@@ -117,7 +117,9 @@ dmypy.json
 *.png
 *.md5
 *.map
-!/docs/**/*.png
-!/docs/**/*.md5
-!/docs/**/*.map
+/docs/html/search/*
+/docs/html/*.html
+/docs/html/*.js
+/docs/html/*.css
+/docs/html/*.svg
 
