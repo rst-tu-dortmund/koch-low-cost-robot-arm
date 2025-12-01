@@ -1,0 +1,10 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.__init__" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.__init__">
+<area shape="rect" id="Node000001" title="Construct a KochV1_DxlBus, initialize motor metadata and create default sync groups." alt="" coords="5,45,212,100"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="56,45,56,35,66,26,83,21,109,19,139,22,157,30,154,34,138,27,109,24,84,26,68,31,61,37,61,45"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a855204d7cf63104f08e7ac68fe820bd9" title="Build motor objects with physical home positions and limits." alt="" coords="278,5,485,60"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="212,55,264,47,265,52,212,60"/>
+<area shape="rect" id="Node000003" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#aac19fcf93a3bafad40259b568f6c7d3d" title="Create default sync groups for joint positions and velocities." alt="" coords="260,84,503,139"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="212,85,247,90,246,95,212,90"/>
+<area shape="rect" id="Node000004" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a534113fb09e52ae8e15fce5c811ab81a" title="Create (or return cached) SyncGroup for a field and motor set." alt="" coords="551,91,785,131"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="503,109,537,109,537,114,503,114"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="kochV1_package.kochV1_robot_simulation.KochV1_Robot_Simulation.set_gripper_position_from_transform" name="kochV1_package.kochV1_robot_simulation.KochV1_Robot_Simulation.set_gripper_position_from_transform">
+<area shape="rect" id="Node000001" title="Move the end&#45;effector to a target pose via inverse kinematics." alt="" coords="275,5,496,75"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__robot__simulation_1_1KochV1__Robot__Simulation.html#ace0f7fe98416b8bfc6f52594ee656ac9" title="Move the end&#45;effector using Cartesian position and two orientation angles." alt="" coords="5,5,227,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,43,227,43,227,37,261,37"/>
+</map>

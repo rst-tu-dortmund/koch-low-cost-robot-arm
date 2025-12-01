@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,42,64,67"/>
+<area shape="rect" id="Node000001" href="$classkochV1__package_1_1kochV1__kinematics_1_1JointType.html" title="Joint actuation type." alt="" coords="112,5,295,45"/>
+<area shape="poly" id="edge2_Node000000_Node000001" title=" " alt="" coords="77,45,111,39,112,44,78,50"/>
+<area shape="rect" id="Node000002" href="$classutils_1_1Unit.html" title="Supported source/target units for conversion." alt="" coords="163,70,244,95"/>
+<area shape="poly" id="edge3_Node000000_Node000002" title=" " alt="" coords="78,59,163,73,162,79,77,64"/>
+</map>

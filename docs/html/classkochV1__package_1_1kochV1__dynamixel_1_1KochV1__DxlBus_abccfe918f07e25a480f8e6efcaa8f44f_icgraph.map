@@ -1,0 +1,5 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._init_physical_home_position" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._init_physical_home_position">
+<area shape="rect" id="Node000001" title="Adjust physical home position and limits based on current reading." alt="" coords="260,5,475,60"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a5ce17f9b899daa1079cd91e1c5e8e529" title="Open the bus and prepare motors for motion." alt="" coords="5,5,212,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="246,35,212,35,212,30,246,30"/>
+</map>

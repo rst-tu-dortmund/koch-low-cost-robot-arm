@@ -1,0 +1,9 @@
+<map id="dynamixel.dxl_bus.DxlBus.read_reg" name="dynamixel.dxl_bus.DxlBus.read_reg">
+<area shape="rect" id="Node000001" title="Read a single control&#45;table entry by size&#45;aware API." alt="" coords="549,60,805,85"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#abccfe918f07e25a480f8e6efcaa8f44f" title="Adjust physical home position and limits based on current reading." alt="" coords="273,5,488,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="569,61,488,50,489,45,569,55"/>
+<area shape="rect" id="Node000004" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a4312c90d9ad38c635eddc73e4498d871" title="Check whether a motor is currently set to a given operating mode." alt="" coords="260,84,501,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="566,90,502,98,501,93,565,85"/>
+<area shape="rect" id="Node000003" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a5ce17f9b899daa1079cd91e1c5e8e529" title="Open the bus and prepare motors for motion." alt="" coords="5,5,212,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="260,35,212,35,212,30,260,30"/>
+</map>

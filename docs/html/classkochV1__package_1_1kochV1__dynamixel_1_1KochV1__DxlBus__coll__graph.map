@@ -1,0 +1,9 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus">
+<area shape="rect" id="Node000001" title="Dynamixel bus specialization for the robot arm Koch V1.1." alt="" coords="13,265,215,305"/>
+<area shape="rect" id="Node000002" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html" title="Lightweight bus wrapper to open/close the port and access Dynamixel registers." alt="" coords="17,191,211,216"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,230,117,265,111,265,111,230"/>
+<area shape="rect" id="Node000003" href="$classdynamixel_1_1motor__specs_1_1base_1_1DynamixelMotor.html" title="Protocol for Dynamixel motor models exposing control&#45;table classes." alt="" coords="5,80,223,120"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="117,134,117,191,111,191,111,134"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="77,5,151,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="117,44,117,80,111,80,111,44"/>
+</map>
