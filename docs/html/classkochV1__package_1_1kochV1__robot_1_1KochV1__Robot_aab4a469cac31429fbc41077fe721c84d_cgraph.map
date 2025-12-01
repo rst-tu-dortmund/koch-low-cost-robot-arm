@@ -1,0 +1,8 @@
+<map id="kochV1_package.kochV1_robot.KochV1_Robot.get_gripper_transform" name="kochV1_package.kochV1_robot.KochV1_Robot.get_gripper_transform">
+<area shape="rect" id="Node000001" title="Compute the current end&#45;effector pose from measured joints." alt="" coords="5,57,191,112"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#ad34b62c18300b80de35eda8fa8bdbd21" title="Read current joint positions for motors 1&#45;5." alt="" coords="239,5,475,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,64,225,56,226,62,191,69"/>
+<area shape="rect" id="Node000003" href="$classkochV1__package_1_1kochV1__robot_1_1KochV1__Robot.html#aec1636927fa09e691b9449e483c6c85b" title="Read the current joint configuration." alt="" coords="260,108,453,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,100,247,111,246,116,190,105"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="306,108,307,98,316,89,332,83,357,81,386,84,402,92,400,97,384,90,357,87,333,89,318,93,312,100,312,108"/>
+</map>

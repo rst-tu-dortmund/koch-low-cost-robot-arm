@@ -1,0 +1,10 @@
+<map id="kochV1_package.kochV1_robot.KochV1_Robot.read_joints" name="kochV1_package.kochV1_robot.KochV1_Robot.read_joints">
+<area shape="rect" id="Node000001" title="Read the current joint configuration." alt="" coords="276,92,469,147"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="416,81,400,74,373,71,350,73,335,77,328,84,328,92,323,92,323,82,332,73,349,67,373,65,402,68,418,76"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__robot_1_1KochV1__Robot.html#aab4a469cac31429fbc41077fe721c84d" title="Compute the current end&#45;effector pose from measured joints." alt="" coords="24,5,209,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="278,90,197,63,199,58,279,85"/>
+<area shape="rect" id="Node000003" href="$classkochV1__package_1_1kochV1__robot__simulation_1_1KochV1__Robot__Simulation.html#ada40cd70fa25ef1f26ceaefe13519748" title="Compute the current end&#45;effector pose from measured joints." alt="" coords="5,85,228,154"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="262,122,228,122,228,117,262,117"/>
+<area shape="rect" id="Node000004" href="$classkochV1__package_1_1kochV1__robot__simulation_1_1KochV1__Robot__Simulation.html#a8e61d15d94247e314a6fb43e77ebc247" title="Set joint velocities for the first 5 joints (velocity control)." alt="" coords="15,178,218,247"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="285,154,213,180,211,175,283,149"/>
+</map>

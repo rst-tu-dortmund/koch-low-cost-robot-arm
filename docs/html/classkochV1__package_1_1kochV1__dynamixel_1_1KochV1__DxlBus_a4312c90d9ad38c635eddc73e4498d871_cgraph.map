@@ -1,0 +1,5 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._validate_motor_operating_mode" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._validate_motor_operating_mode">
+<area shape="rect" id="Node000001" title="Check whether a motor is currently set to a given operating mode." alt="" coords="5,5,247,60"/>
+<area shape="rect" id="Node000002" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#afc3af2e49699229e61db2391b4d2c7fb" title="Read a single control&#45;table entry by size&#45;aware API." alt="" coords="295,20,551,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="247,30,281,30,281,35,247,35"/>
+</map>

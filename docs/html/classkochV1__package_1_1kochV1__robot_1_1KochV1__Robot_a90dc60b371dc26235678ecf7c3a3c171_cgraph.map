@@ -1,0 +1,8 @@
+<map id="kochV1_package.kochV1_robot.KochV1_Robot.set_gripper_position_from_transform" name="kochV1_package.kochV1_robot.KochV1_Robot.set_gripper_position_from_transform">
+<area shape="rect" id="Node000001" title="Move the end&#45;effector to a target pose via inverse kinematics." alt="" coords="5,50,189,119"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a4f0db6837031f1917ccd61ead14afda8" title="Command joint positions for motors 1&#45;5." alt="" coords="237,5,464,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,63,223,56,224,61,190,68"/>
+<area shape="rect" id="Node000003" href="$classkochV1__package_1_1kochV1__robot_1_1KochV1__Robot.html#abbf1cfc4f70df86faea2937ee3e0ff82" title="Set the 5 joint angles." alt="" coords="259,108,443,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,100,246,112,245,117,189,106"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="301,108,302,98,311,89,327,83,351,81,379,84,395,92,393,97,378,90,351,87,328,89,313,93,307,100,307,108"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="kochV1_package.kochV1_kinematics.KochV1_KinematicsModel.compute_inverse_kinematics" name="kochV1_package.kochV1_kinematics.KochV1_KinematicsModel.compute_inverse_kinematics">
+<area shape="rect" id="Node000001" title="Compute joint angles that realize the desired end&#45;effector pose." alt="" coords="5,71,263,125"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__kinematics_1_1KochV1__KinematicsModel.html#a0b876541fef08b89d8cbe97850949842" title="Compute the final wrist rotation to align end&#45;effector X&#45;axes." alt="" coords="311,5,544,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,68,297,59,298,64,258,73"/>
+<area shape="rect" id="Node000003" href="$classkochV1__package_1_1kochV1__kinematics_1_1KochV1__KinematicsModel.html#a82c1a598154e7ac699e06df7b1f0051d" title="Compute end&#45;effector pose from joint angles." alt="" coords="592,56,851,111"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="263,92,578,84,578,90,263,97"/>
+<area shape="rect" id="Node000004" href="$classkochV1__package_1_1kochV1__kinematics_1_1KochV1__KinematicsModel.html#a7abb002716ac21a53c1538082fce5b07" title="Get the robot configuration." alt="" coords="899,89,1132,144"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="263,104,592,119,721,121,851,119,885,119,885,124,851,125,721,127,592,125,263,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="545,50,579,56,578,61,544,55"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="851,95,886,99,885,105,851,101"/>
+</map>

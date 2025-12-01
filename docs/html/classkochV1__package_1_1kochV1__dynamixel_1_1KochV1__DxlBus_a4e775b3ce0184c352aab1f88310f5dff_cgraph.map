@@ -1,0 +1,11 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_operating_mode" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_operating_mode">
+<area shape="rect" id="Node000001" title="Set the operating mode for a specific motor." alt="" coords="5,71,232,125"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a0080e75245569e938489685a5b4077ff" title="Disable torque on a motor." alt="" coords="280,5,487,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,68,266,59,267,64,231,73"/>
+<area shape="rect" id="Node000003" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#af015710d9d24d657fe92cb49cf155ad5" title="Write a single control&#45;table entry by size&#45;aware API." alt="" coords="535,85,795,111"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="233,95,521,95,521,101,233,101"/>
+<area shape="rect" id="Node000004" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a4ef2a1685d6d919e11e8eb13b58713ca" title="Enable torque on a motor." alt="" coords="280,136,487,191"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="231,123,267,132,266,137,229,128"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="487,54,597,80,596,85,486,59"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="486,137,596,111,597,116,487,142"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="kochV1_package.kochV1_kinematics.KochV1_KinematicsModel._calculate_theta_5" name="kochV1_package.kochV1_kinematics.KochV1_KinematicsModel._calculate_theta_5">
+<area shape="rect" id="Node000001" title="Compute the final wrist rotation to align end&#45;effector X&#45;axes." alt="" coords="311,5,544,60"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__kinematics_1_1KochV1__KinematicsModel.html#ad073d90eb099bacdd3457ec9f65186eb" title="Compute joint angles that realize the desired end&#45;effector pose." alt="" coords="5,5,263,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="297,35,263,35,263,30,297,30"/>
+</map>
