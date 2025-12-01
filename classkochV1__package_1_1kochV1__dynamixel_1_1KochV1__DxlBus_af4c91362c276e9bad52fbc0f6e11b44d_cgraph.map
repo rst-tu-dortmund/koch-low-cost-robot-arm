@@ -1,0 +1,6 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.__init__" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.__init__">
+<area shape="rect" id="node1" title="Construct a KochV1_DxlBus, initialize motor metadata and create default sync groups." alt="" coords="5,45,212,100"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a9e64dd356e3df8ee47a28a4749c9ce13" title="Build motor objects with physical home positions and limits." alt="" coords="278,5,485,60"/>
+<area shape="rect" id="node3" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a5a1395614f636835516fa7ac963b8bb7" title="Create default sync groups for joint positions and velocities." alt="" coords="260,84,503,139"/>
+<area shape="rect" id="node4" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a534113fb09e52ae8e15fce5c811ab81a" title="Create (or return cached) SyncGroup for a field and motor set." alt="" coords="551,91,785,131"/>
+</map>

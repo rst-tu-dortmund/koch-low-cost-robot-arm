@@ -1,0 +1,8 @@
+<map id="kochV1_package.kochV1_robot_simulation.KochV1_Robot_Simulation.set_gripper_position_from_xyz_psi_phi" name="kochV1_package.kochV1_robot_simulation.KochV1_Robot_Simulation.set_gripper_position_from_xyz_psi_phi">
+<area shape="rect" id="node1" title="Move the end&#45;effector using Cartesian position and two orientation angles." alt="" coords="5,94,227,163"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__robot_1_1KochV1__Robot.html#aee9e5cedd8f0b1a29f901d72a7f9a9e5" title="Move the end&#45;effector to a target pose via inverse kinematics." alt="" coords="293,47,477,117"/>
+<area shape="rect" id="node6" href="$classkochV1__package_1_1kochV1__robot__simulation_1_1KochV1__Robot__Simulation.html#a1e2a2dfcfb743dd8ed102ed534320f85" title="Move the end&#45;effector to a target pose via inverse kinematics." alt="" coords="275,141,496,210"/>
+<area shape="rect" id="node3" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a320b8128282feee68a9b7f9714d10f5e" title="Command joint positions for motors 1&#45;5." alt="" coords="544,5,771,60"/>
+<area shape="rect" id="node4" href="$classkochV1__package_1_1kochV1__robot_1_1KochV1__Robot.html#a6a4dd52d88349167346158eb871dcb7b" title="Set the 5 joint angles." alt="" coords="565,108,749,163"/>
+<area shape="rect" id="node5" href="$classkochV1__package_1_1kochV1__robot__simulation_1_1KochV1__Robot__Simulation.html#a61a9aa7854534d52534ad26c5b806912" title="Set the 5 joint angles." alt="" coords="552,187,763,241"/>
+</map>

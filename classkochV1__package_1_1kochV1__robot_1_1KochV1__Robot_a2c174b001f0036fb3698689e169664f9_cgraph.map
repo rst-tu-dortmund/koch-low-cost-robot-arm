@@ -1,0 +1,3 @@
+<map id="kochV1_package.kochV1_robot.KochV1_Robot.set_goal_velocities" name="kochV1_package.kochV1_robot.KochV1_Robot.set_goal_velocities">
+<area shape="rect" id="node1" title="Set joint velocities for the first 5 joints (velocity control)." alt="" coords="5,29,189,84"/>
+</map>

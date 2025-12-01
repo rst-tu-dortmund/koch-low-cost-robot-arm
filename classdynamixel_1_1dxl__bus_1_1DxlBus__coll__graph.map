@@ -1,0 +1,7 @@
+<map id="dynamixel.dxl_bus.DxlBus" name="dynamixel.dxl_bus.DxlBus">
+<area shape="rect" id="Node000001" title="Lightweight bus wrapper to open/close the port and access Dynamixel registers." alt="" coords="17,191,211,216"/>
+<area shape="rect" id="Node000002" href="$classdynamixel_1_1motor__specs_1_1base_1_1DynamixelMotor.html" title="Protocol for Dynamixel motor models exposing control&#45;table classes." alt="" coords="5,80,223,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,134,117,191,111,191,111,134"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="77,5,151,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="117,44,117,80,111,80,111,44"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="kochV1_package.kochV1_robot.KochV1_Robot.read_joint_velocities" name="kochV1_package.kochV1_robot.KochV1_Robot.read_joint_velocities">
+<area shape="rect" id="Node000001" title="Read current joint velocities ordered as the kinematic chain expects." alt="" coords="5,29,199,84"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="64,29,64,19,71,10,84,5,102,3,124,6,136,14,134,18,122,11,102,8,85,10,74,15,69,21,69,29"/>
+</map>

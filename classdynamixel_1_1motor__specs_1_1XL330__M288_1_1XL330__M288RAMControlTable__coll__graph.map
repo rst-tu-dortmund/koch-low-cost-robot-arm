@@ -1,0 +1,5 @@
+<map id="dynamixel.motor_specs.XL330_M288.XL330_M288RAMControlTable" name="dynamixel.motor_specs.XL330_M288.XL330_M288RAMControlTable">
+<area shape="rect" id="node1" title="RAM control&#45;table fields for the Dynamixel XL330&#45;M288." alt="" coords="5,387,268,427"/>
+<area shape="rect" id="node2" href="$classdynamixel_1_1motor__specs_1_1base_1_1ControlField.html" title="Descriptor of a Dynamixel control&#45;table field." alt="" coords="29,93,245,133"/>
+<area shape="rect" id="node3" title=" " alt="" coords="98,5,175,31"/>
+</map>

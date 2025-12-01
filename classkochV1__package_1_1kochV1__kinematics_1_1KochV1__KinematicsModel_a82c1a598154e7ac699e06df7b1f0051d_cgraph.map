@@ -1,0 +1,4 @@
+<map id="kochV1_package.kochV1_kinematics.KochV1_KinematicsModel.compute_forward_kinematics" name="kochV1_package.kochV1_kinematics.KochV1_KinematicsModel.compute_forward_kinematics">
+<area shape="rect" id="node1" title="Compute end&#45;effector pose from joint angles." alt="" coords="5,5,264,60"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__kinematics_1_1KochV1__KinematicsModel.html#a7abb002716ac21a53c1538082fce5b07" title="Get the robot configuration." alt="" coords="312,5,545,60"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_goal_velocities" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_goal_velocities">
+<area shape="rect" id="node1" title="Set target velocities for joints 1&#45;5." alt="" coords="5,13,232,67"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a46c3395d2189491d6db9ddac118f57f5" title="Configure profile velocity and acceleration for a motor." alt="" coords="280,5,487,75"/>
+<area shape="rect" id="node3" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a264c79adb00a92dd21d1838773fb2012" title="Write a single control&#45;table entry by size&#45;aware API." alt="" coords="535,27,793,53"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="kochV1_package.kochV1_robot.KochV1_Robot.set_epcm_control_mode" name="kochV1_package.kochV1_robot.KochV1_Robot.set_epcm_control_mode">
+<area shape="rect" id="node1" title="Switch the first 5 joints to extended position control mode." alt="" coords="260,29,444,84"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#adde8c9a1d049ffcb99f5b99df3991fb4" title="Open the bus and prepare motors for motion." alt="" coords="5,29,212,84"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="dynamixel.motor_specs.XL330_M288.XL330_M288EEPROMControlTable" name="dynamixel.motor_specs.XL330_M288.XL330_M288EEPROMControlTable">
+<area shape="rect" id="node1" title="EEPROM control&#45;table fields for the Dynamixel XL330&#45;M288." alt="" coords="5,401,293,441"/>
+<area shape="rect" id="node2" href="$classdynamixel_1_1motor__specs_1_1base_1_1ControlField.html" title="Descriptor of a Dynamixel control&#45;table field." alt="" coords="41,93,257,133"/>
+<area shape="rect" id="node3" title=" " alt="" coords="111,5,188,31"/>
+</map>

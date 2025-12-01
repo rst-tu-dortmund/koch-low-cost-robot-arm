@@ -1,0 +1,5 @@
+<map id="kochV1_package.kochV1_kinematics.KochV1_KinematicsModel._init_compute_jacobian_func" name="kochV1_package.kochV1_kinematics.KochV1_KinematicsModel._init_compute_jacobian_func">
+<area shape="rect" id="node1" title="Build a fast NumPy Jacobian function from a symbolic expression." alt="" coords="5,5,260,60"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__kinematics_1_1KochV1__KinematicsModel.html#acff901c64e17789c181d846640adfd68" title="Build the symbolic geometric Jacobian J(q) using SymPy." alt="" coords="308,5,541,60"/>
+<area shape="rect" id="node3" href="$classkochV1__package_1_1kochV1__kinematics_1_1KochV1__KinematicsModel.html#a7abb002716ac21a53c1538082fce5b07" title="Get the robot configuration." alt="" coords="589,5,823,60"/>
+</map>

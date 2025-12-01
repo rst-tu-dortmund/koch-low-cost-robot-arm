@@ -1,0 +1,12 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._enable_torque" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._enable_torque">
+<area shape="rect" id="Node000001" title="Enable torque on a motor." alt="" coords="809,5,1016,60"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a5ce17f9b899daa1079cd91e1c5e8e529" title="Open the bus and prepare motors for motion." alt="" coords="5,5,212,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="796,29,761,27,511,23,260,27,212,29,212,24,260,22,511,18,761,22,796,23"/>
+<area shape="rect" id="Node000003" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a4e775b3ce0184c352aab1f88310f5dff" title="Set the operating mode for a specific motor." alt="" coords="535,37,761,92"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="796,49,762,54,761,48,796,44"/>
+<area shape="rect" id="Node000004" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a9503ea2ba8bf71ab2a8287eae634f7ae" title="Switch joints 1&#45;5 to extended position control mode." alt="" coords="260,37,487,92"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="521,67,487,67,487,62,521,62"/>
+<area shape="rect" id="Node000005" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a92cddb26e60dba152c606d3c18d65627" title="Switch joints 1&#45;5 to velocity control mode." alt="" coords="260,116,487,171"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="539,98,470,118,469,113,538,93"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="246,52,212,48,212,42,247,47"/>
+</map>

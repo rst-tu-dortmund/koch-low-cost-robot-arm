@@ -1,0 +1,4 @@
+<map id="dynamixel.dxl_bus.DxlBus.__exit__" name="dynamixel.dxl_bus.DxlBus.__exit__">
+<area shape="rect" id="node1" title="Context manager exit: close the port." alt="" coords="5,5,204,45"/>
+<area shape="rect" id="node2" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a09d0be9c7906313baca62b0da929817b" title="Close the serial port if it is open." alt="" coords="252,13,520,38"/>
+</map>

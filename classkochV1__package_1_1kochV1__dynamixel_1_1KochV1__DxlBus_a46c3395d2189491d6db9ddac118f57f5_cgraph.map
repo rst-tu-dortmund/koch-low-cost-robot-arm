@@ -1,0 +1,4 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._set_motor_velocity_and_acceleration" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._set_motor_velocity_and_acceleration">
+<area shape="rect" id="node1" title="Configure profile velocity and acceleration for a motor." alt="" coords="5,5,212,75"/>
+<area shape="rect" id="node2" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a264c79adb00a92dd21d1838773fb2012" title="Write a single control&#45;table entry by size&#45;aware API." alt="" coords="260,27,519,53"/>
+</map>

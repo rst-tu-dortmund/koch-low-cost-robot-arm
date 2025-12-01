@@ -1,0 +1,8 @@
+<map id="kochV1_package.kochV1_robot_simulation.KochV1_Robot_Simulation.set_joints" name="kochV1_package.kochV1_robot_simulation.KochV1_Robot_Simulation.set_joints">
+<area shape="rect" id="node1" title="Set the 5 joint angles." alt="" coords="544,106,755,161"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__robot__simulation_1_1KochV1__Robot__Simulation.html#a9007a0beedca557acf7a39d39b6d830f" title="Set joint velocities for the first 5 joints (velocity control)." alt="" coords="284,5,487,75"/>
+<area shape="rect" id="node3" href="$classkochV1__package_1_1kochV1__robot_1_1KochV1__Robot.html#aee9e5cedd8f0b1a29f901d72a7f9a9e5" title="Move the end&#45;effector to a target pose via inverse kinematics." alt="" coords="293,192,477,261"/>
+<area shape="rect" id="node6" href="$classkochV1__package_1_1kochV1__robot__simulation_1_1KochV1__Robot__Simulation.html#a1e2a2dfcfb743dd8ed102ed534320f85" title="Move the end&#45;effector to a target pose via inverse kinematics." alt="" coords="275,99,496,168"/>
+<area shape="rect" id="node4" href="$classkochV1__package_1_1kochV1__robot_1_1KochV1__Robot.html#ab528f404afc10c6b4a4e30b675c21b30" title="Move the end&#45;effector using Cartesian position and two orientation angles." alt="" coords="24,99,208,168"/>
+<area shape="rect" id="node5" href="$classkochV1__package_1_1kochV1__robot__simulation_1_1KochV1__Robot__Simulation.html#a2d8354bf451dfb41247709a56a205c26" title="Move the end&#45;effector using Cartesian position and two orientation angles." alt="" coords="5,192,227,261"/>
+</map>

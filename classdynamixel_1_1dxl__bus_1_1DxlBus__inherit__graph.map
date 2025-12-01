@@ -1,0 +1,4 @@
+<map id="dynamixel.dxl_bus.DxlBus" name="dynamixel.dxl_bus.DxlBus">
+<area shape="rect" id="node1" title="Lightweight bus wrapper to open/close the port and access Dynamixel registers." alt="" coords="9,5,204,31"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html" title="Dynamixel bus specialization for the robot arm Koch V1.1." alt="" coords="5,79,208,119"/>
+</map>

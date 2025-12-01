@@ -1,0 +1,6 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_operating_mode" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_operating_mode">
+<area shape="rect" id="node1" title="Set the operating mode for a specific motor." alt="" coords="535,45,761,100"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#aaa2f4d821edc73135d33ce4376a62a5c" title="Switch joints 1&#45;5 to extended position control mode." alt="" coords="260,5,487,60"/>
+<area shape="rect" id="node4" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#af2cc9bc520cd4dac5618b6f664a5310b" title="Switch joints 1&#45;5 to velocity control mode." alt="" coords="260,84,487,139"/>
+<area shape="rect" id="node3" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#adde8c9a1d049ffcb99f5b99df3991fb4" title="Open the bus and prepare motors for motion." alt="" coords="5,5,212,60"/>
+</map>

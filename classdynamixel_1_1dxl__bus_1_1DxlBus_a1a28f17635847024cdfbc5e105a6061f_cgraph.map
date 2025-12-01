@@ -1,0 +1,4 @@
+<map id="dynamixel.dxl_bus.DxlBus.__enter__" name="dynamixel.dxl_bus.DxlBus.__enter__">
+<area shape="rect" id="node1" title="Context manager entry: open the port." alt="" coords="5,5,204,45"/>
+<area shape="rect" id="node2" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a86068904ac64536a76bc392dd85c7c2f" title="Open the serial port for communication." alt="" coords="252,13,501,38"/>
+</map>

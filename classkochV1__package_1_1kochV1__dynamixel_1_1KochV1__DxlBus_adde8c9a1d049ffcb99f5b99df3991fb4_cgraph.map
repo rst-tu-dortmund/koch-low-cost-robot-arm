@@ -1,0 +1,13 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.__enter__" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.__enter__">
+<area shape="rect" id="node1" title="Open the bus and prepare motors for motion." alt="" coords="5,191,212,245"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a5c5b8d2ded215cbf06141b6dfb215617" title="Enable torque on a motor." alt="" coords="860,5,1067,60"/>
+<area shape="rect" id="node4" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a617e2063c53d98a528a6849af647ed0b" title="Adjust physical home position and limits based on current reading." alt="" coords="277,223,492,277"/>
+<area shape="rect" id="node6" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a46c3395d2189491d6db9ddac118f57f5" title="Configure profile velocity and acceleration for a motor." alt="" coords="581,150,788,219"/>
+<area shape="rect" id="node7" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a86068904ac64536a76bc392dd85c7c2f" title="Open the serial port for communication." alt="" coords="260,301,509,327"/>
+<area shape="rect" id="node8" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#aaa2f4d821edc73135d33ce4376a62a5c" title="Switch joints 1&#45;5 to extended position control mode." alt="" coords="271,92,498,147"/>
+<area shape="rect" id="node11" href="$classkochV1__package_1_1kochV1__robot_1_1KochV1__Robot.html#a1777c08b23b2a613321bafa9e7aaff93" title="Switch the first 5 joints to extended position control mode." alt="" coords="293,375,477,429"/>
+<area shape="rect" id="node3" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a264c79adb00a92dd21d1838773fb2012" title="Write a single control&#45;table entry by size&#45;aware API." alt="" coords="1115,119,1373,144"/>
+<area shape="rect" id="node5" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#afc3af2e49699229e61db2391b4d2c7fb" title="Read a single control&#45;table entry by size&#45;aware API." alt="" coords="557,244,812,269"/>
+<area shape="rect" id="node9" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a72b338a07e65753abd9ca6af9265b802" title="Set the operating mode for a specific motor." alt="" coords="571,71,798,125"/>
+<area shape="rect" id="node10" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a6b0fee0caeacb7f550fbe81458b21351" title="Disable torque on a motor." alt="" coords="860,136,1067,191"/>
+</map>

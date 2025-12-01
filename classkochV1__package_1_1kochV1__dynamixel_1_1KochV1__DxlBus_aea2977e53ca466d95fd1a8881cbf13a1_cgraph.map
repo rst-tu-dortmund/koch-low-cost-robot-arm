@@ -1,0 +1,6 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.__exit__" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.__exit__">
+<area shape="rect" id="node1" title="Disable torque and close the bus on context exit." alt="" coords="5,37,212,92"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a6b0fee0caeacb7f550fbe81458b21351" title="Disable torque on a motor." alt="" coords="291,5,497,60"/>
+<area shape="rect" id="node4" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a09d0be9c7906313baca62b0da929817b" title="Close the serial port if it is open." alt="" coords="260,84,528,109"/>
+<area shape="rect" id="node3" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a264c79adb00a92dd21d1838773fb2012" title="Write a single control&#45;table entry by size&#45;aware API." alt="" coords="576,20,835,45"/>
+</map>

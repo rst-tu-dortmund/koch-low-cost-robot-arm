@@ -1,0 +1,5 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._enable_torque" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._enable_torque">
+<area shape="rect" id="Node000001" title="Enable torque on a motor." alt="" coords="5,5,212,60"/>
+<area shape="rect" id="Node000002" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#af015710d9d24d657fe92cb49cf155ad5" title="Write a single control&#45;table entry by size&#45;aware API." alt="" coords="260,20,520,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,30,246,30,246,35,212,35"/>
+</map>

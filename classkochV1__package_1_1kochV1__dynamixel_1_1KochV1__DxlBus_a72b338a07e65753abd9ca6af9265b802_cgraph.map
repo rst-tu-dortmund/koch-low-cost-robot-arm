@@ -1,0 +1,6 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_operating_mode" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_operating_mode">
+<area shape="rect" id="node1" title="Set the operating mode for a specific motor." alt="" coords="5,71,232,125"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a6b0fee0caeacb7f550fbe81458b21351" title="Disable torque on a motor." alt="" coords="280,5,487,60"/>
+<area shape="rect" id="node3" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a264c79adb00a92dd21d1838773fb2012" title="Write a single control&#45;table entry by size&#45;aware API." alt="" coords="535,85,793,111"/>
+<area shape="rect" id="node4" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a5c5b8d2ded215cbf06141b6dfb215617" title="Enable torque on a motor." alt="" coords="280,136,487,191"/>
+</map>

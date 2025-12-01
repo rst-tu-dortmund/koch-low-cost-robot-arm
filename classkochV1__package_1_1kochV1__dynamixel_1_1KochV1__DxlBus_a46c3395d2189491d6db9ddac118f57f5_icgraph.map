@@ -1,0 +1,6 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._set_motor_velocity_and_acceleration" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus._set_motor_velocity_and_acceleration">
+<area shape="rect" id="node1" title="Configure profile velocity and acceleration for a motor." alt="" coords="535,30,741,99"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#adde8c9a1d049ffcb99f5b99df3991fb4" title="Open the bus and prepare motors for motion." alt="" coords="5,5,212,60"/>
+<area shape="rect" id="node3" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#aaa2f4d821edc73135d33ce4376a62a5c" title="Switch joints 1&#45;5 to extended position control mode." alt="" coords="260,37,487,92"/>
+<area shape="rect" id="node4" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a355ade0bbf77136c8e63875d0a2e77cf" title="Set target velocities for joints 1&#45;5." alt="" coords="260,116,487,171"/>
+</map>

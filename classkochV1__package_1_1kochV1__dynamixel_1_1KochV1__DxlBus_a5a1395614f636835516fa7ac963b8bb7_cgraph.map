@@ -1,0 +1,4 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.make_default_sync_groups" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.make_default_sync_groups">
+<area shape="rect" id="node1" title="Create default sync groups for joint positions and velocities." alt="" coords="5,5,248,60"/>
+<area shape="rect" id="node2" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a534113fb09e52ae8e15fce5c811ab81a" title="Create (or return cached) SyncGroup for a field and motor set." alt="" coords="296,13,531,53"/>
+</map>

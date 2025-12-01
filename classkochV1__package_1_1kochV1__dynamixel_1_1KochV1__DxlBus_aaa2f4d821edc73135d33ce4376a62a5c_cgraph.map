@@ -1,0 +1,8 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_epcm_control_mode" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_epcm_control_mode">
+<area shape="rect" id="node1" title="Switch joints 1&#45;5 to extended position control mode." alt="" coords="5,63,232,118"/>
+<area shape="rect" id="node2" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a46c3395d2189491d6db9ddac118f57f5" title="Configure profile velocity and acceleration for a motor." alt="" coords="290,5,497,75"/>
+<area shape="rect" id="node4" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a72b338a07e65753abd9ca6af9265b802" title="Set the operating mode for a specific motor." alt="" coords="280,106,507,161"/>
+<area shape="rect" id="node3" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#a264c79adb00a92dd21d1838773fb2012" title="Write a single control&#45;table entry by size&#45;aware API." alt="" coords="809,103,1068,129"/>
+<area shape="rect" id="node5" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a6b0fee0caeacb7f550fbe81458b21351" title="Disable torque on a motor." alt="" coords="555,121,761,175"/>
+<area shape="rect" id="node6" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a5c5b8d2ded215cbf06141b6dfb215617" title="Enable torque on a motor." alt="" coords="555,199,761,254"/>
+</map>

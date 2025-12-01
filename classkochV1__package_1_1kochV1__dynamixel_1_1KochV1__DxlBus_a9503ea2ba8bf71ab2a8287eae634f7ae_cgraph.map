@@ -1,0 +1,16 @@
+<map id="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_epcm_control_mode" name="kochV1_package.kochV1_dynamixel.KochV1_DxlBus.set_epcm_control_mode">
+<area shape="rect" id="Node000001" title="Switch joints 1&#45;5 to extended position control mode." alt="" coords="5,63,232,118"/>
+<area shape="rect" id="Node000002" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a028cf0475ed57863d423eaec8bb4e555" title="Configure profile velocity and acceleration for a motor." alt="" coords="290,5,497,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,67,276,59,277,64,233,72"/>
+<area shape="rect" id="Node000004" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a4e775b3ce0184c352aab1f88310f5dff" title="Set the operating mode for a specific motor." alt="" coords="280,106,507,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="233,106,267,111,266,116,232,111"/>
+<area shape="rect" id="Node000003" href="$classdynamixel_1_1dxl__bus_1_1DxlBus.html#af015710d9d24d657fe92cb49cf155ad5" title="Write a single control&#45;table entry by size&#45;aware API." alt="" coords="809,103,1069,129"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="497,50,762,85,848,99,847,104,761,91,496,55"/>
+<area shape="poly" id="edge8_Node000004_Node000003" title=" " alt="" coords="506,111,554,105,678,101,795,104,795,109,678,106,555,111,507,116"/>
+<area shape="rect" id="Node000005" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a0080e75245569e938489685a5b4077ff" title="Disable torque on a motor." alt="" coords="555,121,761,175"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="507,137,541,139,541,144,507,142"/>
+<area shape="rect" id="Node000006" href="$classkochV1__package_1_1kochV1__dynamixel_1_1KochV1__DxlBus.html#a4ef2a1685d6d919e11e8eb13b58713ca" title="Enable torque on a motor." alt="" coords="555,199,761,254"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="472,158,568,192,566,197,471,163"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="761,134,814,128,814,133,762,139"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="731,197,760,186,894,131,896,136,762,190,733,202"/>
+</map>
